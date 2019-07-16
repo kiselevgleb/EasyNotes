@@ -57,86 +57,215 @@ public class MainActivity extends AppCompatActivity {
         point4 = findViewById(R.id.textPass4);
 
         n1.setOnClickListener(clickListener1);
-        n2.setOnClickListener(clickListener1);
-        n3.setOnClickListener(clickListener1);
-        n4.setOnClickListener(clickListener1);
-        n5.setOnClickListener(clickListener1);
-        n6.setOnClickListener(clickListener1);
-        n7.setOnClickListener(clickListener1);
-        n8.setOnClickListener(clickListener1);
-        n9.setOnClickListener(clickListener1);
-        n0.setOnClickListener(clickListener1);
-        c.setOnClickListener(clickListener1);    }
+        n2.setOnClickListener(clickListener2);
+        n3.setOnClickListener(clickListener3);
+        n4.setOnClickListener(clickListener4);
+        n5.setOnClickListener(clickListener5);
+        n6.setOnClickListener(clickListener6);
+        n7.setOnClickListener(clickListener7);
+        n8.setOnClickListener(clickListener8);
+        n9.setOnClickListener(clickListener9);
+        n0.setOnClickListener(clickListener0);
+        c.setOnClickListener(clickListenerC);    }
 
 
     String pass = "";
+
     private View.OnClickListener clickListener1 = new View.OnClickListener() {
         @Override
         public void onClick(View v)  {
+            pass +="1";check();}};
+    private View.OnClickListener clickListener2 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+                pass +="2";check();}};
+    private View.OnClickListener clickListener3 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="3";check();}};
+    private View.OnClickListener clickListener4 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="4";check();}};
+    private View.OnClickListener clickListener5 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="5";check();}};
+    private View.OnClickListener clickListener6 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="6";check();}};
+    private View.OnClickListener clickListener7 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="7";check();}};
+    private View.OnClickListener clickListener8 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="8";check();}};
+    private View.OnClickListener clickListener9 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="9";check();}};
+    private View.OnClickListener clickListener0 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            pass +="0";check();}};
+    private View.OnClickListener clickListenerC = new View.OnClickListener() {
+        @Override
+        public void onClick(View v)  {
+            if (pass.length()>0){
+                String sub = pass.substring(0, pass.length()-1);
+            pass = sub;
+            check();}}};
 
-
-               if(pass.length()==0){
-                switch (v.getId()) {
-                case R.id.button1: pass +="1"; point1.setTextColor(Color.YELLOW);break;
-                case R.id.button2: pass +="2";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button3: pass +="3";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button4: pass +="4";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button5: pass +="5";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button6: pass +="6";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button7: pass +="7";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button8: pass +="8";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button9: pass +="9";  point1.setTextColor(Color.YELLOW);break;
-                case R.id.button0: pass +="0";  point1.setTextColor(Color.YELLOW);break;   }}
-
-               else if(pass.length()==1){
-                    switch (v.getId()) {
-                        case R.id.button1: pass +="1"; point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button2: pass +="2";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button3: pass +="3";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button4: pass +="4";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button5: pass +="5";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button6: pass +="6";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button7: pass +="7";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button8: pass +="8";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button9: pass +="9";  point2.setTextColor(Color.YELLOW);break;
-                        case R.id.button0: pass +="0";  point2.setTextColor(Color.YELLOW);break;   }}
-
-                else if(pass.length()==2){
-                    switch (v.getId()) {
-                        case R.id.button1: pass +="1"; point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button2: pass +="2";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button3: pass +="3";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button4: pass +="4";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button5: pass +="5";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button6: pass +="6";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button7: pass +="7";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button8: pass +="8";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button9: pass +="9";  point3.setTextColor(Color.YELLOW);break;
-                        case R.id.button0: pass +="0";  point3.setTextColor(Color.YELLOW);break;   }}
-
-                else if(pass.length()==3){
-                    switch (v.getId()) {
-                        case R.id.button1: pass +="1"; point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button2: pass +="2";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button3: pass +="3";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button4: pass +="4";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button5: pass +="5";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button6: pass +="6";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button7: pass +="7";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button8: pass +="8";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button9: pass +="9";  point4.setTextColor(Color.YELLOW);break;
-                        case R.id.button0: pass +="0";  point4.setTextColor(Color.YELLOW);break;}
-}
-                        if (pass.length()==4&&pass.equals(passDoc)) {
-                            Intent intent= new Intent(MainActivity.this, NotesAct.class);
-                            startActivity(intent); }
-//                            setContentView(R.layout.notes);}
-                        else if (pass.length()==4){
-                            pass = "";
-                            point1.setTextColor(Color.GRAY);
-                            point2.setTextColor(Color.GRAY);
-                            point3.setTextColor(Color.GRAY);
-                            point4.setTextColor(Color.GRAY);}
+    private void check(){
+    if (pass.length()==0){
+            point1.setTextColor(Color.GRAY);
+            point2.setTextColor(Color.GRAY);
+            point3.setTextColor(Color.GRAY);
+            point4.setTextColor(Color.GRAY);
         }
-    };
+    else if (pass.length()==1){
+        point1.setTextColor(Color.YELLOW);
+        point2.setTextColor(Color.GRAY);
+        point3.setTextColor(Color.GRAY);
+        point4.setTextColor(Color.GRAY);
+    }
+    else if (pass.length()==2){
+        point1.setTextColor(Color.YELLOW);
+        point2.setTextColor(Color.YELLOW);
+        point3.setTextColor(Color.GRAY);
+        point4.setTextColor(Color.GRAY);
+    }
+    else if (pass.length()==3){
+        point1.setTextColor(Color.YELLOW);
+        point2.setTextColor(Color.YELLOW);
+        point3.setTextColor(Color.YELLOW);
+        point4.setTextColor(Color.GRAY);    }
+    else if (pass.length()==4){
+        point1.setTextColor(Color.YELLOW);
+        point2.setTextColor(Color.YELLOW);
+        point3.setTextColor(Color.YELLOW);
+        point4.setTextColor(Color.YELLOW);    }
+
+    if (pass.length()==4&&pass.equals(passDoc)) {
+        Intent intent= new Intent(MainActivity.this, NotesAct.class);
+        startActivity(intent); }
+    else if (pass.length()==4){
+                pass = "";
+                point1.setTextColor(Color.GRAY);
+                point2.setTextColor(Color.GRAY);
+                point3.setTextColor(Color.GRAY);
+                point4.setTextColor(Color.GRAY);}
+    }
+
+
+//    private View.OnClickListener clickListener2 = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v)  {
+//            if(pass.length()==0){
+//                pass +="2";
+//                point1.setTextColor(Color.YELLOW);
+//            }
+//            else if(pass.length()==1){
+//                pass +="2";
+//                point2.setTextColor(Color.YELLOW);
+//            }
+//            else if(pass.length()==2){
+//                pass +="2";
+//                point3.setTextColor(Color.YELLOW);}
+//
+//            else if(pass.length()==3){
+//                pass +="2";
+//                point4.setTextColor(Color.YELLOW);
+//            }
+//            if (pass.length()==4&&pass.equals(passDoc)) {
+//                Intent intent= new Intent(MainActivity.this, NotesAct.class);
+//                startActivity(intent); }
+//            else if (pass.length()==4){
+//                pass = "";
+//                point1.setTextColor(Color.GRAY);
+//                point2.setTextColor(Color.GRAY);
+//                point3.setTextColor(Color.GRAY);
+//                point4.setTextColor(Color.GRAY);}
+//        }
+//    };
+
+
+
+//    private View.OnClickListener clickListener1 = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v)  {
+//               if(pass.length()==0){
+//                switch (v.getId()) {
+//                case R.id.button1: pass +="1"; break;
+//                case R.id.button2: pass +="2"; break;
+//                case R.id.button3: pass +="3"; break;
+//                case R.id.button4: pass +="4"; break;
+//                case R.id.button5: pass +="5"; break;
+//                case R.id.button6: pass +="6"; break;
+//                case R.id.button7: pass +="7"; break;
+//                case R.id.button8: pass +="8"; break;
+//                case R.id.button9: pass +="9"; break;
+//                case R.id.button0: pass +="0"; break;   }
+//                   point1.setTextColor(Color.YELLOW);
+//               }
+//
+//               else if(pass.length()==1){
+//                    switch (v.getId()) {
+//                        case R.id.button1: pass +="1"; break;
+//                        case R.id.button2: pass +="2";  break;
+//                        case R.id.button3: pass +="3";  break;
+//                        case R.id.button4: pass +="4";  break;
+//                        case R.id.button5: pass +="5";  break;
+//                        case R.id.button6: pass +="6";  break;
+//                        case R.id.button7: pass +="7";  break;
+//                        case R.id.button8: pass +="8";  break;
+//                        case R.id.button9: pass +="9";  break;
+//                        case R.id.button0: pass +="0";  break;   }
+//                   point2.setTextColor(Color.YELLOW);
+//               }
+//
+//                else if(pass.length()==2){
+//                    switch (v.getId()) {
+//                        case R.id.button1: pass +="1"; break;
+//                        case R.id.button2: pass +="2"; break;
+//                        case R.id.button3: pass +="3"; break;
+//                        case R.id.button4: pass +="4"; break;
+//                        case R.id.button5: pass +="5"; break;
+//                        case R.id.button6: pass +="6"; break;
+//                        case R.id.button7: pass +="7"; break;
+//                        case R.id.button8: pass +="8"; break;
+//                        case R.id.button9: pass +="9"; break;
+//                        case R.id.button0: pass +="0"; break;
+//                    }
+//                   point3.setTextColor(Color.YELLOW);}
+//
+//                else if(pass.length()==3){
+//                    switch (v.getId()) {
+//                        case R.id.button1: pass +="1"; break;
+//                        case R.id.button2: pass +="2";  break;
+//                        case R.id.button3: pass +="3";  break;
+//                        case R.id.button4: pass +="4";  break;
+//                        case R.id.button5: pass +="5";  break;
+//                        case R.id.button6: pass +="6";  break;
+//                        case R.id.button7: pass +="7";  break;
+//                        case R.id.button8: pass +="8";  break;
+//                        case R.id.button9: pass +="9"; break;
+//                        case R.id.button0: pass +="0";  break;}
+//                   point4.setTextColor(Color.YELLOW);
+//                    }
+//                        if (pass.length()==4&&pass.equals(passDoc)) {
+//                            Intent intent= new Intent(MainActivity.this, NotesAct.class);
+//                            startActivity(intent); }
+////                            setContentView(R.layout.notes);}
+//                        else if (pass.length()==4){
+//                            pass = "";
+//                            point1.setTextColor(Color.GRAY);
+//                            point2.setTextColor(Color.GRAY);
+//                            point3.setTextColor(Color.GRAY);
+//                            point4.setTextColor(Color.GRAY);}
+//        }
+//    };
 }

@@ -34,4 +34,5 @@ public class NotesAct extends AppCompatActivity {
         inflater.inflate(R.menu.notmenu, menu);
         return true;
     }
+
 }
