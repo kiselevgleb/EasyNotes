@@ -2,6 +2,7 @@
     <string name="app_name">Notes and reminding</string>
     <string name="_sortup">sort-up</string>
     <string name="_sortd">sort-down</string>
+    <string name="_save">save</string>
 
     <string name="_5">5</string>
     <string name="enter_pin">Enter pin:</string>

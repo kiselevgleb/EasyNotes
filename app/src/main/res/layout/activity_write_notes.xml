@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".WriteNotesActivity">
+
+    <EditText
+        android:id="@+id/hader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="Text"
+        android:hint="Заголовок"
+        android:inputType=""
+        android:textSize="30sp"
+        tools:text="Hader" />
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="top|start"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="Text"
+        android:hint="Тело заметки"
+        android:inputType=""
+        android:textSize="18sp"
+        android:gravity="top"
+        tools:text="Body"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+
+        android:text="Has deadline" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="30dp"
+            android:hint="Date"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <!--<EditText-->
+            <!--android:id="@+id/editText"-->
+            <!--style="@style/date"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="top|start"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginTop="0dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:hint="Date"-->
+            <!--android:inputType=""-->
+            <!--tools:text="Date" />-->
+
+        <!--<DatePicker-->
+            <!--android:id="@+id/dateButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:calendarViewShown="false"-->
+            <!--android:spinnersShown="false" />-->
+
+    </LinearLayout>
+
+</LinearLayout>
