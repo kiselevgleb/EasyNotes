@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyAdapter extends BaseAdapter {
-    private final ArrayList mData;
+public class MapAdapter extends BaseAdapter {
+    public static ArrayList mData;
 
-    public MyAdapter(Map<String, String> map) {
+    public MapAdapter(Map<String, String> map) {
         mData = new ArrayList();
         mData.addAll(map.entrySet());
     }

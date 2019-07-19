@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notes and reminding</string>
+    <string name="app_name">Notes</string>
     <string name="_sortup">sort-up</string>
     <string name="_sortd">sort-down</string>
     <string name="_save">save</string>
@@ -20,5 +20,12 @@
     <string name="_4">4</string>
     <string name="_3">3</string>
     <string name="_2">2</string>
-    <string name="title_activity_notes">NotesAct</string>
+    <string name="title_activity_notes">Notes</string>
+    <string name="has_deadline">Has deadline</string>
+    <string name="textDesc">Text</string>
+    <string name="Body">Тело заметки</string>
+    <string name="Title">Заголовок</string>
+    <string name="date">Date</string>
+    <string name="title_activity_login">Sign in</string>
+
 </resources>

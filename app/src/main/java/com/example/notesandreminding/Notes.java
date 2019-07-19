@@ -1,26 +1,24 @@
 package com.example.notesandreminding;
 
-import android.widget.CheckBox;
-
 import java.util.Calendar;
 
 public class Notes {
-    String hader;
+    String title;
     String text;
-    Calendar calendar;
+    long calendar;
 
-    public Notes(String hader, String text, Calendar calendar) {
-        this.hader = hader;
+    public Notes(String title, String text, long calendar) {
+        this.title = title;
         this.text = text;
         this.calendar = calendar;
     }
 
-    public String getHader() {
-        return hader;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHader(String hader) {
-        this.hader = hader;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getText() {
@@ -31,11 +29,11 @@ public class Notes {
         this.text = text;
     }
 
-    public Calendar getCalendar() {
+    public long getCalendar() {
         return calendar;
     }
 
-    public void setCalendar(Calendar calendar) {
+    public void setCalendar(long calendar) {
         this.calendar = calendar;
     }
 }

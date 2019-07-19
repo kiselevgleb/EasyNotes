@@ -10,7 +10,9 @@ import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,47 +24,74 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class NotesAct extends AppCompatActivity {
     FloatingActionButton floating;
     ListView listView;
     ArrayList<HashMap<String, String>> hmList = new ArrayList<>();
-    HashMap<String, String> hashMap= new HashMap<>();
+    HashMap<String, String> hashMap = new HashMap<>();
     ArrayList<Notes> values = new ArrayList<>(WriteNotesActivity.db.values());
+    public static int impText = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-        floating = (FloatingActionButton)findViewById(R.id.fab);
+        floating = (FloatingActionButton) findViewById(R.id.fab);
         listView = findViewById(R.id.listView);
 
-        for (int i = 0; i <values.size() ; i++) {
-            hashMap.put(values.get(i).hader, values.get(i).text);
+        for (int i = 0; i < values.size(); i++) {
+            hashMap.put(values.get(i).title, values.get(i).text);
         }
         hmList.add(hashMap);
         showNotes(hashMap);
 
         floating.setOnClickListener(clickListener);
+        listView.setOnItemClickListener(itemClickListener);
     }
-    public void showNotes(HashMap<String, String> cinemas) {
-        MyAdapter adapter = new MyAdapter(cinemas);
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Map.Entry<String, String> item = (Map.Entry) MapAdapter.mData.get(position);
+            impText = 1;
+            Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
+            intent.putExtra("hader1", item.getKey());
+            intent.putExtra("text1", item.getValue());
+
+            startActivity(intent);
+        }
+    };
+
+    public void showNotes(HashMap<String, String> not) {
+        MapAdapter adapter = new MapAdapter(not);
         listView.setAdapter(adapter);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
-        public void onClick(View v)  {
-            Intent intent= new Intent(NotesAct.this, WriteNotesActivity.class);
+        public void onClick(View v) {
+            Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
             startActivity(intent);
-        }};
+        }
+    };
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.notmenu, menu);
         return true;
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort:
+                Intent intent2 = new Intent(NotesAct.this, NewPassActivity.class);
+                startActivity(intent2);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
