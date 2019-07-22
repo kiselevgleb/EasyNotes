@@ -13,30 +13,43 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/textDesc"
         android:hint="@string/Title"
-        android:inputType=""
+        android:inputType="text"
+        android:maxLines="1"
         android:textSize="30sp"
         tools:text="Hader" />
 
-    <EditText
-        android:id="@+id/text"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="top|start"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:contentDescription="@string/textDesc"
-        android:gravity="top"
-        android:hint="@string/Body"
-        android:inputType=""
-        android:textSize="18sp"
-        tools:text="Body" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="top|start"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="00dp"
+                android:contentDescription="@string/textDesc"
+                android:gravity="top"
+                android:hint="@string/Body"
+                android:inputType=""
+                android:textSize="18sp"
+                tools:text="Body" />
+        </LinearLayout>
+    </ScrollView>
 
     <CheckBox
         android:id="@+id/checkBox"

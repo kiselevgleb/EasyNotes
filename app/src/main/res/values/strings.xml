@@ -27,5 +27,6 @@
     <string name="Title">Заголовок</string>
     <string name="date">Date</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -27,18 +27,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotesAct extends AppCompatActivity {
-    FloatingActionButton floating;
+    FloatingActionButton add;
     ListView listView;
     ArrayList<HashMap<String, String>> hmList = new ArrayList<>();
     HashMap<String, String> hashMap = new HashMap<>();
-    ArrayList<Notes> values = new ArrayList<>(WriteNotesActivity.db.values());
+    ArrayList<Notes> values = new ArrayList<>(WriteNotesActivity.getDateBase().values());
     public static int impText = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-        floating = (FloatingActionButton) findViewById(R.id.fab);
+        add = (FloatingActionButton) findViewById(R.id.fab);
         listView = findViewById(R.id.listView);
 
         for (int i = 0; i < values.size(); i++) {
@@ -47,7 +47,7 @@ public class NotesAct extends AppCompatActivity {
         hmList.add(hashMap);
         showNotes(hashMap);
 
-        floating.setOnClickListener(clickListener);
+        add.setOnClickListener(clickListener);
         listView.setOnItemClickListener(itemClickListener);
     }
 
@@ -56,11 +56,13 @@ public class NotesAct extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Map.Entry<String, String> item = (Map.Entry) MapAdapter.mData.get(position);
             impText = 1;
-            Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
-            intent.putExtra("hader1", item.getKey());
-            intent.putExtra("text1", item.getValue());
+            if (item.getKey() != null && item.getValue() != null) {
+                Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
+                intent.putExtra("haderEditText", item.getKey());
+                intent.putExtra("textEditText", item.getValue());
 
-            startActivity(intent);
+                startActivity(intent);
+            }
         }
     };
 

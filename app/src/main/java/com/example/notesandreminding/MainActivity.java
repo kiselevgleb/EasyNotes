@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,9 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.example.notesandreminding.NewPassActivity.sp;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,23 +38,30 @@ public class MainActivity extends AppCompatActivity {
     private TextView point3;
     private TextView point4;
     private String passDoc = "0000";
+    private final String MY_SET = "MY_SETTINGS";
+
+    public static SharedPreferences spass;
+
+    public static SharedPreferences getSpass() {
+        return spass;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        SharedPreferences sp = getSharedPreferences("MY_SETTINGS", Context.MODE_PRIVATE);
-        boolean hasVisited = sp.getBoolean("hasVisited", false);
-
-        if (!hasVisited) {
-            Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
-            startActivity(intent);
-            SharedPreferences.Editor e = sp.edit();
-            e.putBoolean("hasVisited", true);
-            e.commit();
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        spass = getSharedPreferences(passDoc, Context.MODE_PRIVATE);
+
+//        SharedPreferences sp = getSharedPreferences(MY_SET, Context.MODE_PRIVATE);
+//        boolean hasVisited = sp.getBoolean("hasVisited", false);
+//        SharedPreferences.Editor e = NewPassActivity.getSpass().edit();
+        if (!(spass.contains("PrivateValue"))) {
+            Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
         n1 = findViewById(R.id.button1);
         n2 = findViewById(R.id.button2);
         n3 = findViewById(R.id.button3);
@@ -89,52 +95,53 @@ public class MainActivity extends AppCompatActivity {
 
     String pass = "";
     private View.OnClickListener clickListenerC = new View.OnClickListener() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View v) {
-            if (pass.length() > 0) {
-                String sub = pass.substring(0, pass.length() - 1);
-                pass = sub;
-                check();
-            }
+            pass = pass.substring(0, Math.max(0, pass.length() - 1));
+            check();
         }
     };
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void check() {
         if (pass.length() == 0) {
-            point1.setTextColor(Color.GRAY);
-            point2.setTextColor(Color.GRAY);
-            point3.setTextColor(Color.GRAY);
-            point4.setTextColor(Color.GRAY);
+            point1.setTextColor(getColor(R.color.pointUnChecked));
+            point2.setTextColor(getColor(R.color.pointUnChecked));
+            point3.setTextColor(getColor(R.color.pointUnChecked));
+            point4.setTextColor(getColor(R.color.pointUnChecked));
         } else if (pass.length() == 1) {
-            point1.setTextColor(Color.YELLOW);
-            point2.setTextColor(Color.GRAY);
-            point3.setTextColor(Color.GRAY);
-            point4.setTextColor(Color.GRAY);
+            point1.setTextColor(getColor(R.color.pointChecked));
+            point2.setTextColor(getColor(R.color.pointUnChecked));
+            point3.setTextColor(getColor(R.color.pointUnChecked));
+            point4.setTextColor(getColor(R.color.pointUnChecked));
         } else if (pass.length() == 2) {
-            point1.setTextColor(Color.YELLOW);
-            point2.setTextColor(Color.YELLOW);
-            point3.setTextColor(Color.GRAY);
-            point4.setTextColor(Color.GRAY);
+            point1.setTextColor(getColor(R.color.pointChecked));
+            point2.setTextColor(getColor(R.color.pointChecked));
+            point3.setTextColor(getColor(R.color.pointUnChecked));
+            point4.setTextColor(getColor(R.color.pointUnChecked));
         } else if (pass.length() == 3) {
-            point1.setTextColor(Color.YELLOW);
-            point2.setTextColor(Color.YELLOW);
-            point3.setTextColor(Color.YELLOW);
-            point4.setTextColor(Color.GRAY);
+            point1.setTextColor(getColor(R.color.pointChecked));
+            point2.setTextColor(getColor(R.color.pointChecked));
+            point3.setTextColor(getColor(R.color.pointChecked));
+            point4.setTextColor(getColor(R.color.pointUnChecked));
         } else if (pass.length() == 4) {
-            point1.setTextColor(Color.YELLOW);
-            point2.setTextColor(Color.YELLOW);
-            point3.setTextColor(Color.YELLOW);
-            point4.setTextColor(Color.YELLOW);
+            point1.setTextColor(getColor(R.color.pointChecked));
+            point2.setTextColor(getColor(R.color.pointChecked));
+            point3.setTextColor(getColor(R.color.pointChecked));
+            point4.setTextColor(getColor(R.color.pointChecked));
         }
-        if (pass.length() == 4 && pass.equals(sp.getString("777", ""))) {
+        if (pass.length() == 4 && pass.equals(spass.getString("PrivateValue", ""))) {
+            finish();
             Intent intent = new Intent(MainActivity.this, NotesAct.class);
             startActivity(intent);
         } else if (pass.length() == 4) {
             pass = "";
-            point1.setTextColor(Color.GRAY);
-            point2.setTextColor(Color.GRAY);
-            point3.setTextColor(Color.GRAY);
-            point4.setTextColor(Color.GRAY);
+            point1.setTextColor(getColor(R.color.pointUnChecked));
+            point2.setTextColor(getColor(R.color.pointUnChecked));
+            point3.setTextColor(getColor(R.color.pointUnChecked));
+            point4.setTextColor(getColor(R.color.pointUnChecked));
             Toast.makeText(getApplicationContext(), "Error password", Toast.LENGTH_SHORT).show();
         }
     }
@@ -146,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             this.number = number;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View v) {
             pass += number;

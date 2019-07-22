@@ -23,31 +23,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WriteNotesActivity extends AppCompatActivity {
-    TextView currentDateTime;
-    public static EditText hader1;
-    public static EditText text1;
-    CheckBox checkBox1;
-    Calendar dateAndTime = Calendar.getInstance();
-    public static HashMap<Calendar, Notes> db = new HashMap<>();
-    Notes notes;
-    String sethd = null;
-    String setText = null;
-    
+    private TextView dueDate;
+    private static EditText title;
+    private static EditText description;
+    private CheckBox checkBoxDate;
+    private Calendar dateAndTime = Calendar.getInstance();
+    private static HashMap<Calendar, Notes> dateBase = new HashMap<>();
+    private Notes notes;
+    private String sethd = null;
+    private String setText = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_notes);
-        currentDateTime = (TextView) findViewById(R.id.date);
-        hader1 = (EditText) findViewById(R.id.hader);
-        text1 = (EditText) findViewById(R.id.text);
-        checkBox1 = (CheckBox) findViewById(R.id.checkBox);
+        dueDate = (TextView) findViewById(R.id.date);
+        title = (EditText) findViewById(R.id.hader);
+        description = (EditText) findViewById(R.id.text);
+        checkBoxDate = (CheckBox) findViewById(R.id.checkBox);
 
-        if (NotesAct.impText==1){
-        sethd = getIntent().getExtras().getString("hader1");
-        setText = getIntent().getExtras().getString("text1");
-        hader1.setText(sethd);
-        text1.setText(setText);
-    }
+        if (NotesAct.impText == 1) {
+            sethd = getIntent().getExtras().getString("haderEditText");
+            setText = getIntent().getExtras().getString("textEditText");
+            title.setText(sethd);
+            description.setText(setText);
+        }
         setInitialDateTime();
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
@@ -60,42 +60,45 @@ public class WriteNotesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item2:
-                if(sethd==null||setText==null){
-                String textHader = hader1.getText().toString();
-                String textBody = text1.getText().toString();
-                notes = new Notes(textHader, textBody, dateAndTime.getTimeInMillis());
-                db.put(dateAndTime, notes);
-                Intent intent2 = new Intent(WriteNotesActivity.this, NotesAct.class);
-                startActivity(intent2);
-                NotesAct.impText=0;
-                return true;}
-                else {
-                    String textHader = hader1.getText().toString();
-                    String textBody = text1.getText().toString();
-                    for (Map.Entry<Calendar, Notes> entry: db.entrySet()) {
+            case R.id.itemMenuSave:
+                if (sethd == null || setText == null) {
+                    String textHader = title.getText().toString();
+                    String textBody = description.getText().toString();
+                    notes = new Notes(textHader, textBody, dateAndTime.getTimeInMillis());
+                    dateBase.put(dateAndTime, notes);
+                    Intent intent2 = new Intent(WriteNotesActivity.this, NotesAct.class);
+                    startActivity(intent2);
+                    NotesAct.impText = 0;
+                    return true;
+                } else {
+                    String textHader = title.getText().toString();
+                    String textBody = description.getText().toString();
+                    for (Map.Entry<Calendar, Notes> entry : dateBase.entrySet()) {
                         Calendar cal = entry.getKey();
                         Notes n = entry.getValue();
-                        if (n.getTitle().equals(sethd)||n.getText().equals(setText)){
+                        if (n.getTitle().equals(sethd) || n.getText().equals(setText)) {
                             n.setTitle(textHader);
                             n.setText(textBody);
                         }
                     }
                     Intent intent2 = new Intent(WriteNotesActivity.this, NotesAct.class);
                     startActivity(intent2);
-                    NotesAct.impText=0;
-                    return true;}
+                    NotesAct.impText = 0;
+                    return true;
+                }
             case android.R.id.home:
                 Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                 startActivity(intent);
-                NotesAct.impText=0;
+                NotesAct.impText = 0;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
     public void setDate() {
         new DatePickerDialog(WriteNotesActivity.this, d,
                 dateAndTime.get(Calendar.YEAR),
@@ -103,6 +106,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                 dateAndTime.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
+
     public void setTime(View v) {
         new TimePickerDialog(WriteNotesActivity.this, t,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
@@ -111,7 +115,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     }
 
     private void setInitialDateTime() {
-        currentDateTime.setText(DateUtils.formatDateTime(this,
+        dueDate.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
                         | DateUtils.FORMAT_SHOW_TIME));
@@ -138,4 +142,25 @@ public class WriteNotesActivity extends AppCompatActivity {
             setDate();
         }
     };
+
+    public static EditText getHaderEditText() {
+        return title;
+    }
+
+    public static void setHaderEditText(EditText haderEditText) {
+        WriteNotesActivity.title = haderEditText;
+    }
+
+    public static EditText getTextEditText() {
+        return description;
+    }
+
+    public static void setTextEditText(EditText textEditText) {
+        WriteNotesActivity.description = textEditText;
+    }
+
+    public static HashMap<Calendar, Notes> getDateBase() {
+        return dateBase;
+    }
+
 }

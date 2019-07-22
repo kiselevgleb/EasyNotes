@@ -2,10 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item2"
+        android:id="@+id/itemMenuSave"
         android:icon="@android:drawable/ic_menu_save"
 
-        android:title="Save"
+        android:title="@string/save"
         app:showAsAction="always">
     </item>
 
