@@ -32,15 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private Button n9;
     private Button n0;
     private Button c;
-
     private TextView point1;
     private TextView point2;
     private TextView point3;
     private TextView point4;
     private String passDoc = "0000";
     private final String MY_SET = "MY_SETTINGS";
-
-    public static SharedPreferences spass;
+    private static SharedPreferences spass;
 
     public static SharedPreferences getSpass() {
         return spass;
@@ -52,15 +50,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         spass = getSharedPreferences(passDoc, Context.MODE_PRIVATE);
 
-//        SharedPreferences sp = getSharedPreferences(MY_SET, Context.MODE_PRIVATE);
-//        boolean hasVisited = sp.getBoolean("hasVisited", false);
-//        SharedPreferences.Editor e = NewPassActivity.getSpass().edit();
         if (!(spass.contains("PrivateValue"))) {
             Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
             startActivity(intent);
             finish();
         }
-
 
         n1 = findViewById(R.id.button1);
         n2 = findViewById(R.id.button2);
@@ -90,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         n9.setOnClickListener(new NumberClickListener(9));
         n0.setOnClickListener(new NumberClickListener(0));
         c.setOnClickListener(clickListenerC);
-
     }
 
     String pass = "";
@@ -102,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             check();
         }
     };
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void check() {

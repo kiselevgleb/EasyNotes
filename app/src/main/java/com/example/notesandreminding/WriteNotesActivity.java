@@ -143,22 +143,6 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
     };
 
-    public static EditText getHaderEditText() {
-        return title;
-    }
-
-    public static void setHaderEditText(EditText haderEditText) {
-        WriteNotesActivity.title = haderEditText;
-    }
-
-    public static EditText getTextEditText() {
-        return description;
-    }
-
-    public static void setTextEditText(EditText textEditText) {
-        WriteNotesActivity.description = textEditText;
-    }
-
     public static HashMap<Calendar, Notes> getDateBase() {
         return dateBase;
     }

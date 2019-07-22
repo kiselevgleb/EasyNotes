@@ -60,7 +60,6 @@ public class NotesAct extends AppCompatActivity {
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("haderEditText", item.getKey());
                 intent.putExtra("textEditText", item.getValue());
-
                 startActivity(intent);
             }
         }

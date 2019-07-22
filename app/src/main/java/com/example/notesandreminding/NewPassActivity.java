@@ -14,23 +14,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static com.example.notesandreminding.MainActivity.spass;
-
-
 public class NewPassActivity extends AppCompatActivity {
     EditText pass;
     CheckBox eye;
     Button save;
     private String VALUE_SP = "PrivateValue";
 
-    //    public static SharedPreferences spass;
-//    private String VALUE_SP = "PrivateValue";
-//    public static SharedPreferences getSpass() {
-//        return spass;
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        spass = getSharedPreferences(VALUE_SP, Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
         pass = (EditText) findViewById(R.id.passNew);
@@ -55,8 +46,9 @@ public class NewPassActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (pass.getText().toString().length() == 4) {
                 String p = pass.getText().toString();
-                spass = getSharedPreferences("0000",MODE_PRIVATE);
-                SharedPreferences.Editor e = spass.edit();
+                SharedPreferences spassImport = MainActivity.getSpass();
+                spassImport = getSharedPreferences("0000", MODE_PRIVATE);
+                SharedPreferences.Editor e = spassImport.edit();
                 e.putString(VALUE_SP, p);
                 e.commit();
                 Intent intent = new Intent(NewPassActivity.this, MainActivity.class);
