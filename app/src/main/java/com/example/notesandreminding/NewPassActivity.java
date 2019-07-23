@@ -19,6 +19,7 @@ public class NewPassActivity extends AppCompatActivity {
     CheckBox eye;
     Button save;
     private String VALUE_SP = "PrivateValue";
+    private SettingsManager settingsManager = MainActivity.getSettingsManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +47,12 @@ public class NewPassActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (pass.getText().toString().length() == 4) {
                 String p = pass.getText().toString();
-                SharedPreferences spassImport = MainActivity.getSpass();
-                spassImport = getSharedPreferences("0000", MODE_PRIVATE);
-                SharedPreferences.Editor e = spassImport.edit();
-                e.putString(VALUE_SP, p);
-                e.commit();
+                settingsManager.setPinCode(p);
                 Intent intent = new Intent(NewPassActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             } else {
-                Toast.makeText(getApplicationContext(), "Error password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.pass_eror, Toast.LENGTH_SHORT).show();
             }
         }
     };

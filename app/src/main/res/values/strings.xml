@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Notes</string>
-    <string name="_sortup">sort-up</string>
+    <string name="newPass">NewPassword</string>
     <string name="_sortd">sort-down</string>
     <string name="_save">save</string>
 
@@ -23,10 +23,13 @@
     <string name="title_activity_notes">Notes</string>
     <string name="has_deadline">Has deadline</string>
     <string name="textDesc">Text</string>
-    <string name="Body">Тело заметки</string>
-    <string name="Title">Заголовок</string>
+    <string name="Body">Body</string>
+    <string name="Title">Title</string>
     <string name="date">Date</string>
     <string name="title_activity_login">Sign in</string>
     <string name="save">Save</string>
+    <string name="pass_eror">The password must consist of four digits</string>
+    <string name="pass">Pass</string>
+
 
 </resources>

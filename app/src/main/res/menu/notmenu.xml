@@ -2,8 +2,8 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/sort"
+        android:id="@+id/newPass"
         android:icon="@drawable/icon"
-        android:title="@string/_sortup"
+        android:title="@string/newPass"
         app:showAsAction="always" />
 </menu>

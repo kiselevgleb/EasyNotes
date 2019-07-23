@@ -22,10 +22,10 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:contentDescription="Pass"
-        android:hint="Pass"
+        android:contentDescription="@string/pass"
+        android:hint="@string/pass"
         android:textSize="30sp"
-        tools:text="Pass"
+        tools:text="@string/pass"
         android:layout_weight="1"
         android:maxLength="4" />
 
@@ -49,5 +49,5 @@
         android:layout_marginTop="0dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="10dp"
-        android:text="Save" />
+        android:text="@string/save" />
 </LinearLayout>

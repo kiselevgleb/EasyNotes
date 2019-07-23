@@ -2,15 +2,20 @@ package com.example.notesandreminding;
 
 import java.util.Calendar;
 
-public class Notes {
+public class Note {
     String title;
     String text;
-    long calendar;
+    String calendar;
 
-    public Notes(String title, String text, long calendar) {
+    public Note(String title, String text, String calendar) {
         this.title = title;
         this.text = text;
         this.calendar = calendar;
+    }
+
+    public Note(String title, String text) {
+        this.title = title;
+        this.text = text;
     }
 
     public String getTitle() {
@@ -29,11 +34,11 @@ public class Notes {
         this.text = text;
     }
 
-    public long getCalendar() {
+    public String getCalendar() {
         return calendar;
     }
 
-    public void setCalendar(long calendar) {
+    public void setCalendar(String calendar) {
         this.calendar = calendar;
     }
 }

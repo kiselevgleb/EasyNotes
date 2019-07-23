@@ -6,15 +6,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
     public static ArrayList mData;
+    public static ArrayList<String> listLongD;
 
-    public MapAdapter(Map<String, String> map) {
+    public MapAdapter(Map<String, String> map, ArrayList<String> listLongDate) {
         mData = new ArrayList();
         mData.addAll(map.entrySet());
+        listLongD = listLongDate;
     }
 
     @Override
@@ -25,6 +32,10 @@ public class MapAdapter extends BaseAdapter {
     @Override
     public Map.Entry<String, String> getItem(int position) {
         return (Map.Entry) mData.get(position);
+    }
+
+    public String getItemLong(int position) {
+        return (String) listLongD.get(position);
     }
 
     @Override
@@ -43,9 +54,13 @@ public class MapAdapter extends BaseAdapter {
         }
 
         Map.Entry<String, String> item = getItem(position);
+        String c = getItemLong(position);
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+        String time = c;
 
-        ((TextView) result.findViewById(android.R.id.text1)).setText(item.getKey());
-        ((TextView) result.findViewById(android.R.id.text2)).setText(item.getValue());
+        ((TextView) result.findViewById(R.id.title)).setText(item.getKey());
+        ((TextView) result.findViewById(R.id.subtitle)).setText(item.getValue());
+        ((TextView) result.findViewById(R.id.textdate)).setText(time);
 
         return result;
     }

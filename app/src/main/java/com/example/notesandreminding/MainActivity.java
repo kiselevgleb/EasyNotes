@@ -36,24 +36,25 @@ public class MainActivity extends AppCompatActivity {
     private TextView point2;
     private TextView point3;
     private TextView point4;
-    private String passDoc = "0000";
+    private String passDoc = "temp";
     private final String MY_SET = "MY_SETTINGS";
-    private static SharedPreferences spass;
 
-    public static SharedPreferences getSpass() {
-        return spass;
+    private static SettingsManager settingsManager;
+
+    public static SettingsManager getSettingsManager() {
+        return settingsManager;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        spass = getSharedPreferences(passDoc, Context.MODE_PRIVATE);
 
-        if (!(spass.contains("PrivateValue"))) {
+        settingsManager = new SettingsManager(this);
+        if (!settingsManager.hasPinCode()) {
             Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         }
 
         n1 = findViewById(R.id.button1);
@@ -98,43 +99,31 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void check() {
-        if (pass.length() == 0) {
-            point1.setTextColor(getColor(R.color.pointUnChecked));
-            point2.setTextColor(getColor(R.color.pointUnChecked));
-            point3.setTextColor(getColor(R.color.pointUnChecked));
-            point4.setTextColor(getColor(R.color.pointUnChecked));
-        } else if (pass.length() == 1) {
-            point1.setTextColor(getColor(R.color.pointChecked));
-            point2.setTextColor(getColor(R.color.pointUnChecked));
-            point3.setTextColor(getColor(R.color.pointUnChecked));
-            point4.setTextColor(getColor(R.color.pointUnChecked));
+        int unCheckedColor = getColor(R.color.pointUnChecked);
+        point1.setTextColor(unCheckedColor);
+        point2.setTextColor(unCheckedColor);
+        point3.setTextColor(unCheckedColor);
+        point4.setTextColor(unCheckedColor);
+        int checkedColor = getColor(R.color.pointChecked);
+        if (pass.length() == 1) {
+            point1.setTextColor(checkedColor);
         } else if (pass.length() == 2) {
-            point1.setTextColor(getColor(R.color.pointChecked));
-            point2.setTextColor(getColor(R.color.pointChecked));
-            point3.setTextColor(getColor(R.color.pointUnChecked));
-            point4.setTextColor(getColor(R.color.pointUnChecked));
+            point1.setTextColor(checkedColor);
+            point2.setTextColor(checkedColor);
         } else if (pass.length() == 3) {
-            point1.setTextColor(getColor(R.color.pointChecked));
-            point2.setTextColor(getColor(R.color.pointChecked));
-            point3.setTextColor(getColor(R.color.pointChecked));
-            point4.setTextColor(getColor(R.color.pointUnChecked));
+            point1.setTextColor(checkedColor);
+            point2.setTextColor(checkedColor);
+            point3.setTextColor(checkedColor);
         } else if (pass.length() == 4) {
-            point1.setTextColor(getColor(R.color.pointChecked));
-            point2.setTextColor(getColor(R.color.pointChecked));
-            point3.setTextColor(getColor(R.color.pointChecked));
-            point4.setTextColor(getColor(R.color.pointChecked));
-        }
-        if (pass.length() == 4 && pass.equals(spass.getString("PrivateValue", ""))) {
-            finish();
-            Intent intent = new Intent(MainActivity.this, NotesAct.class);
-            startActivity(intent);
-        } else if (pass.length() == 4) {
-            pass = "";
-            point1.setTextColor(getColor(R.color.pointUnChecked));
-            point2.setTextColor(getColor(R.color.pointUnChecked));
-            point3.setTextColor(getColor(R.color.pointUnChecked));
-            point4.setTextColor(getColor(R.color.pointUnChecked));
-            Toast.makeText(getApplicationContext(), "Error password", Toast.LENGTH_SHORT).show();
+            if (pass.length() == 4 && pass.equals(settingsManager.getPinCode())) {
+                finish();
+                Intent intent = new Intent(MainActivity.this, NotesAct.class);
+                startActivity(intent);
+            } else {
+                pass = "";
+                Toast.makeText(getApplicationContext(), "Error password", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
