@@ -30,6 +30,14 @@
     <string name="save">Save</string>
     <string name="pass_eror">The password must consist of four digits</string>
     <string name="pass">Pass</string>
+    <string name="pass_error">Pass error</string>
+
+    <string name="Warning">Warning</string>
+    <string name="Are_you_sure">Are you sure you want to delete this note?</string>
+    <string name="DELETE">DELETE</string>
+    <string name="CANCEL">CANCEL</string>
+
+
 
 
 </resources>

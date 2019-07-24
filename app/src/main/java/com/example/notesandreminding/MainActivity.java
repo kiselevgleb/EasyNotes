@@ -21,24 +21,12 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button n1;
-    private Button n2;
-    private Button n3;
-    private Button n4;
-    private Button n5;
-    private Button n6;
-    private Button n7;
-    private Button n8;
-    private Button n9;
-    private Button n0;
-    private Button c;
     private TextView point1;
     private TextView point2;
     private TextView point3;
     private TextView point4;
     private String passDoc = "temp";
     private final String MY_SET = "MY_SETTINGS";
-
     private static SettingsManager settingsManager;
 
     public static SettingsManager getSettingsManager() {
@@ -57,34 +45,22 @@ public class MainActivity extends AppCompatActivity {
 //            finish();
         }
 
-        n1 = findViewById(R.id.button1);
-        n2 = findViewById(R.id.button2);
-        n3 = findViewById(R.id.button3);
-        n4 = findViewById(R.id.button4);
-        n5 = findViewById(R.id.button5);
-        n6 = findViewById(R.id.button6);
-        n7 = findViewById(R.id.button7);
-        n8 = findViewById(R.id.button8);
-        n9 = findViewById(R.id.button9);
-        n0 = findViewById(R.id.button0);
-        c = findViewById(R.id.button);
-
         point1 = findViewById(R.id.textPass1);
         point2 = findViewById(R.id.textPass2);
         point3 = findViewById(R.id.textPass3);
         point4 = findViewById(R.id.textPass4);
 
-        n1.setOnClickListener(new NumberClickListener(1));
-        n2.setOnClickListener(new NumberClickListener(2));
-        n3.setOnClickListener(new NumberClickListener(3));
-        n4.setOnClickListener(new NumberClickListener(4));
-        n5.setOnClickListener(new NumberClickListener(5));
-        n6.setOnClickListener(new NumberClickListener(6));
-        n7.setOnClickListener(new NumberClickListener(7));
-        n8.setOnClickListener(new NumberClickListener(8));
-        n9.setOnClickListener(new NumberClickListener(9));
-        n0.setOnClickListener(new NumberClickListener(0));
-        c.setOnClickListener(clickListenerC);
+        findViewById(R.id.button1).setOnClickListener(new NumberClickListener(1));
+        findViewById(R.id.button2).setOnClickListener(new NumberClickListener(2));
+        findViewById(R.id.button3).setOnClickListener(new NumberClickListener(3));
+        findViewById(R.id.button4).setOnClickListener(new NumberClickListener(4));
+        findViewById(R.id.button5).setOnClickListener(new NumberClickListener(5));
+        findViewById(R.id.button6).setOnClickListener(new NumberClickListener(6));
+        findViewById(R.id.button7).setOnClickListener(new NumberClickListener(7));
+        findViewById(R.id.button8).setOnClickListener(new NumberClickListener(8));
+        findViewById(R.id.button9).setOnClickListener(new NumberClickListener(9));
+        findViewById(R.id.button0).setOnClickListener(new NumberClickListener(0));
+        findViewById(R.id.button).setOnClickListener(clickListenerC);
     }
 
     String pass = "";
@@ -116,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
             point3.setTextColor(checkedColor);
         } else if (pass.length() == 4) {
             if (pass.length() == 4 && pass.equals(settingsManager.getPinCode())) {
-                finish();
                 Intent intent = new Intent(MainActivity.this, NotesAct.class);
                 startActivity(intent);
+                finish();
+
             } else {
                 pass = "";
-                Toast.makeText(getApplicationContext(), "Error password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.pass_error, Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 

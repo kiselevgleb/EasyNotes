@@ -16,12 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
     public static ArrayList mData;
-    public static ArrayList<String> listLongD;
 
-    public MapAdapter(Map<String, String> map, ArrayList<String> listLongDate) {
+    public MapAdapter(Map<Long, Note> map) {
         mData = new ArrayList();
         mData.addAll(map.entrySet());
-        listLongD = listLongDate;
     }
 
     @Override
@@ -30,12 +28,8 @@ public class MapAdapter extends BaseAdapter {
     }
 
     @Override
-    public Map.Entry<String, String> getItem(int position) {
+    public Map.Entry<Long, Note> getItem(int position) {
         return (Map.Entry) mData.get(position);
-    }
-
-    public String getItemLong(int position) {
-        return (String) listLongD.get(position);
     }
 
     @Override
@@ -53,14 +47,24 @@ public class MapAdapter extends BaseAdapter {
             result = convertView;
         }
 
-        Map.Entry<String, String> item = getItem(position);
-        String c = getItemLong(position);
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-        String time = c;
+        Map.Entry<Long, Note> item = getItem(position);
+        String tit = item.getValue().getTitle();
+        String text = item.getValue().getText();
+        String zero = item.getValue().getCalendar();
+        Long date = item.getKey();
+        String timeString = " ";
+        if (zero != "1") {
+            Calendar d = Calendar.getInstance();
+            d.setTimeInMillis(date);
+            Date convertDate = d.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+            timeString = formatter.format(convertDate);
+        }
 
-        ((TextView) result.findViewById(R.id.title)).setText(item.getKey());
-        ((TextView) result.findViewById(R.id.subtitle)).setText(item.getValue());
-        ((TextView) result.findViewById(R.id.textdate)).setText(time);
+
+        ((TextView) result.findViewById(R.id.title)).setText(tit);
+        ((TextView) result.findViewById(R.id.subtitle)).setText(text);
+        ((TextView) result.findViewById(R.id.textdate)).setText(timeString);
 
         return result;
     }

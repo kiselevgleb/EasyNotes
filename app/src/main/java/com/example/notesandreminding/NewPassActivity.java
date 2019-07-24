@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class NewPassActivity extends AppCompatActivity {
     EditText pass;
-    CheckBox eye;
+    CheckBox showPassCheckbox;
     Button save;
     private String VALUE_SP = "PrivateValue";
     private SettingsManager settingsManager = MainActivity.getSettingsManager();
@@ -26,9 +26,9 @@ public class NewPassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
         pass = (EditText) findViewById(R.id.passNew);
-        eye = (CheckBox) findViewById(R.id.checkBoxPass);
+        showPassCheckbox = (CheckBox) findViewById(R.id.checkBoxPass);
         save = (Button) findViewById(R.id.buttonSavePass);
-        eye.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        showPassCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

@@ -25,17 +25,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WriteNotesActivity extends AppCompatActivity {
-    private EditText dueDate;
+    private static EditText dueDate;
     private static EditText title;
     private static EditText description;
 
     private CheckBox checkBoxDate;
     private Calendar dateAndTime = Calendar.getInstance();
-    private static HashMap<String, Note> dateBase = new HashMap<>();
     private Note notes;
     private String sethd = null;
     private String setText = null;
     private String dateText = null;
+    private String zero = "1";
+    private int checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +46,29 @@ public class WriteNotesActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.hader);
         description = (EditText) findViewById(R.id.text);
         checkBoxDate = (CheckBox) findViewById(R.id.checkBox);
+
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
         if (NotesAct.impText == 1) {
             sethd = getIntent().getExtras().getString("haderEditText");
             setText = getIntent().getExtras().getString("textEditText");
             dateText = getIntent().getExtras().getString("dateEditText");
+            checkBox = getIntent().getExtras().getInt("checkBox");
+            if (checkBox == 1) {
+                checkBoxDate.setChecked(true);
+            }
             title.setText(sethd);
             description.setText(setText);
             dueDate.setText(dateText);
         } else {
+            sethd = null;
+            setText = null;
+            dateText = null;
+            title.setText(sethd);
+            description.setText(setText);
+            dueDate.setText(dateText);
             setInitialDateTime();
+
         }
     }
 
@@ -70,13 +83,25 @@ public class WriteNotesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemMenuSave:
-                if (sethd == null || setText == null) {
+                if (NotesAct.impText == 0) {
                     if (checkBoxDate.isChecked()) {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        String newCalendar = dueDate.getText().toString();
-                        notes = new Note(textHader, textBody, newCalendar);
-                        dateBase.put(newCalendar, notes);
+                        String cal = dueDate.getText().toString();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+                        Date dateDate = null;
+                        try {
+                            dateDate = formatter.parse(cal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = dateDate.toString();
+                        Long newCalendar = dateDate.getTime();
+
+                        notes = new Note(textHader, textBody, date, 1);
+                        NotesAct.getDateBase().put(newCalendar, notes);
+
+                        finish();
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         NotesAct.impText = 0;
@@ -84,27 +109,41 @@ public class WriteNotesActivity extends AppCompatActivity {
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        notes = new Note(textHader, textBody);
-                        dateBase.put(dateAndTime.toString(), notes);
+                        notes = new Note(textHader, textBody, zero, 0);
+                        NotesAct.getDateBase().put(dateAndTime.getTimeInMillis(), notes);
+                        finish();
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         NotesAct.impText = 0;
                         return true;
                     }
-                } else {
+                } else if (NotesAct.impText == 1) {
                     if (checkBoxDate.isChecked()) {
+
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        String newCalendar = dueDate.getText().toString();
+                        String cal = dueDate.getText().toString();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+                        if (cal.split("")[2]=="/"){
+                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+                        }
+                        Date dateDate = null;
+                        try {
+                            dateDate = formatter.parse(cal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String date = dateDate.toString();
+                        Long newCalendar = dateDate.getTime();
 
-                        for (Map.Entry<String, Note> entry : dateBase.entrySet()) {
-                            String cal = entry.getKey();
+                        for (Map.Entry<Long, Note> entry : NotesAct.getDateBase().entrySet()) {
+                            Long calLong = entry.getKey();
                             Note n = entry.getValue();
-                            if (n.getTitle().equals(sethd) || n.getText().equals(setText)) {
-                                n.setTitle(textHader);
-                                n.setText(textBody);
-                                n.setCalendar(newCalendar);
 
+                            if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
+                                NotesAct.getDateBase().remove(calLong);
+                                notes = new Note(textHader, textBody, date, 1);
+                                NotesAct.getDateBase().put(newCalendar, notes);
                             }
                         }
                         finish();
@@ -116,12 +155,13 @@ public class WriteNotesActivity extends AppCompatActivity {
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        for (Map.Entry<String, Note> entry : dateBase.entrySet()) {
-                            String cal = entry.getKey();
+                        for (Map.Entry<Long, Note> entry : NotesAct.getDateBase().entrySet()) {
+                            Long cal = entry.getKey();
                             Note n = entry.getValue();
-                            if (n.getTitle().equals(sethd) || n.getText().equals(setText)) {
+                            if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
                                 n.setTitle(textHader);
                                 n.setText(textBody);
+                                cal = Calendar.getInstance().getTimeInMillis();
                             }
                         }
                         finish();
@@ -132,8 +172,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                     }
                 }
             case android.R.id.home:
-                Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
-                startActivity(intent);
+                finish();
                 NotesAct.impText = 0;
                 return true;
             default:
@@ -187,8 +226,5 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
     };
 
-    public static HashMap<String, Note> getDateBase() {
-        return dateBase;
-    }
 
 }
