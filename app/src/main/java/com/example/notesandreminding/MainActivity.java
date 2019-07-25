@@ -25,13 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView point2;
     private TextView point3;
     private TextView point4;
-    private String passDoc = "temp";
-    private final String MY_SET = "MY_SETTINGS";
-    private static SettingsManager settingsManager;
-
-    public static SettingsManager getSettingsManager() {
-        return settingsManager;
-    }
+    private SettingsManager settingsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         if (!settingsManager.hasPinCode()) {
             Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
             startActivity(intent);
-
             finish();
         }
 

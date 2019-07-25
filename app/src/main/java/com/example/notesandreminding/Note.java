@@ -7,9 +7,31 @@ import java.util.Calendar;
 public class Note {
     String title;
     String text;
-//    long calendar;
+    long deadline;
     int checkBoxIsChecked;
 
+    public long getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(long deadline) {
+        this.deadline = deadline;
+    }
+
+    public int getCheckBoxIsChecked() {
+        return checkBoxIsChecked;
+    }
+
+    public void setCheckBoxIsChecked(int checkBoxIsChecked) {
+        this.checkBoxIsChecked = checkBoxIsChecked;
+    }
+
+    public Note(String title, String text, long deadline, int checkBoxIsChecked) {
+        this.title = title;
+        this.text = text;
+        this.deadline = deadline;
+        this.checkBoxIsChecked = checkBoxIsChecked;
+    }
 
     public int getCheckBox() {
         return checkBoxIsChecked;
@@ -19,17 +41,6 @@ public class Note {
         this.checkBoxIsChecked = checkBox;
     }
 
-    public Note(String title, String text, int checkBox) {
-        this.title = title;
-        this.text = text;
-//        this.calendar = calendar;
-        this.checkBoxIsChecked = checkBox;
-    }
-
-    public Note(String title, String text) {
-        this.title = title;
-        this.text = text;
-    }
 
     public String getTitle() {
         return title;
@@ -46,12 +57,5 @@ public class Note {
     public void setText(String text) {
         this.text = text;
     }
-//
-//    public long getCalendar() {
-//        return calendar;
-//    }
-//
-//    public void setCalendar(long calendar) {
-//        this.calendar = calendar;
-//    }
+
 }

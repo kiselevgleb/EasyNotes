@@ -88,9 +88,10 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Long newCalendar = ParsDate(cal);
-                        notes = new Note(textHader, textBody, 1);
-                        NotesRepository.saveNote(newCalendar, notes);
+                        Long deadLine = ParsDate(cal);
+                        Long dateUpDate = Calendar.getInstance().getTimeInMillis();
+                        notes = new Note(textHader, textBody, deadLine,1);
+                        NotesRepository.saveNote(dateUpDate, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -99,9 +100,10 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Long newCalendar = ParsDate(cal);
-                        notes = new Note(textHader, textBody,  0);
-                        NotesRepository.saveNote(newCalendar, notes);
+//                        Long newCalendar = ParsDate(cal);
+                        Long dateUpDate = Calendar.getInstance().getTimeInMillis();
+                        notes = new Note(textHader, textBody,  0,0);
+                        NotesRepository.saveNote(dateUpDate, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -112,14 +114,16 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Long newCalendar = ParsDate(cal);
+                        Long deadLine = ParsDate(cal);
+                        Long dateUpDate = Calendar.getInstance().getTimeInMillis();
+
                         for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long calLong = entry.getKey();
                             Note n = entry.getValue();
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                notes = new Note(textHader, textBody, 1);
+                                notes = new Note(textHader, textBody, deadLine,1);
                                 NotesRepository.removeNote(calLong);
-                                NotesRepository.saveNote(newCalendar, notes);
+                                NotesRepository.saveNote(dateUpDate, notes);
                             }
                         }
 
@@ -132,14 +136,15 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String calnew = dueDate.getText().toString();
-                        Long newCalendar = ParsDate(calnew);
+//                        Long newCalendar = ParsDate(calnew);
+                        Long dateUpDate = Calendar.getInstance().getTimeInMillis();
                         for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long cal = entry.getKey();
                             Note n = entry.getValue();
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                notes = new Note(textHader, textBody, 0);
+                                notes = new Note(textHader, textBody, 0,0);
                                 NotesRepository.removeNote(cal);
-                                NotesRepository.saveNote(newCalendar, notes);
+                                NotesRepository.saveNote(dateUpDate, notes);
 
                             }
                         }

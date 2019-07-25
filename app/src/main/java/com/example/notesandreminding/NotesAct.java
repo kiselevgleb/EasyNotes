@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotesAct extends AppCompatActivity {
-    private FloatingActionButton add;
     private ListView listView;
     private int impText = 0;
 
@@ -28,11 +27,10 @@ public class NotesAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-        add = (FloatingActionButton) findViewById(R.id.fab);
         listView = findViewById(R.id.listView);
         showNotes(NotesRepository.getNotes());
 
-        add.setOnClickListener(addNoteClickListener);
+        findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
     }
@@ -80,7 +78,7 @@ public class NotesAct extends AppCompatActivity {
                 String timeString = " ";
 //                if (item.getKey() != 0) {
                 Calendar d = Calendar.getInstance();
-                d.setTimeInMillis(item.getKey());
+                d.setTimeInMillis(item.getValue().getDeadline());
                 Date convertDate = d.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
                 timeString = formatter.format(convertDate);

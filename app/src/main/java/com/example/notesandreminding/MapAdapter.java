@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
     public static ArrayList mData;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
 
     public MapAdapter(Map<Long, Note> map) {
         mData = new ArrayList();
@@ -53,13 +54,12 @@ public class MapAdapter extends BaseAdapter {
         String text = item.getValue().getText();
         int checkBox = item.getValue().getCheckBox();
 //        long zero = item.getValue().getCalendar();
-        Long date = item.getKey();
+        Long date = item.getValue().getDeadline();
         String timeString = " ";
         if (checkBox == 1) {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(date);
             Date convertDate = d.getTime();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
             timeString = formatter.format(convertDate);
         }
 

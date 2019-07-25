@@ -18,12 +18,13 @@ public class NewPassActivity extends AppCompatActivity {
     private EditText pass;
     private CheckBox showPassCheckbox;
     private Button save;
-    private SettingsManager settingsManager = MainActivity.getSettingsManager();
+    private SettingsManager settingsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
+        settingsManager = new SettingsManager(this);
         pass = (EditText) findViewById(R.id.passNew);
         showPassCheckbox = (CheckBox) findViewById(R.id.checkBoxPass);
         save = (Button) findViewById(R.id.buttonSavePass);
