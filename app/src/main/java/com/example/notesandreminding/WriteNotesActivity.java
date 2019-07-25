@@ -35,9 +35,9 @@ public class WriteNotesActivity extends AppCompatActivity {
     private String sethd = null;
     private String setText = null;
     private String dateText = null;
-    private String zero = "1";
+    private long zero = 1;
     private int checkBox;
-
+    private int impText = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +46,11 @@ public class WriteNotesActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.hader);
         description = (EditText) findViewById(R.id.text);
         checkBoxDate = (CheckBox) findViewById(R.id.checkBox);
-
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
-        if (NotesAct.impText == 1) {
+        impText = getIntent().getExtras().getInt("impText");
+
+        if (impText == 1) {
             sethd = getIntent().getExtras().getString("haderEditText");
             setText = getIntent().getExtras().getString("textEditText");
             dateText = getIntent().getExtras().getString("dateEditText");
@@ -66,9 +67,8 @@ public class WriteNotesActivity extends AppCompatActivity {
             dateText = null;
             title.setText(sethd);
             description.setText(setText);
-            dueDate.setText(dateText);
+            dueDate.setText(dateAndTime.toString());
             setInitialDateTime();
-
         }
     }
 
@@ -83,79 +83,68 @@ public class WriteNotesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemMenuSave:
-                if (NotesAct.impText == 0) {
+                if (impText == 0) {
                     if (checkBoxDate.isChecked()) {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-                        Date dateDate = null;
-                        try {
-                            dateDate = formatter.parse(cal);
+                        Date dateDate = Calendar.getInstance().getTime();
+                        SimpleDateFormat formatter = null;
+                        if (cal.split("")[2].equals(" ")){formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");}
+                        else {formatter = new SimpleDateFormat("dd/MM/yy hh:mm");}
+                        try { dateDate = formatter.parse(cal);
                         } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String date = dateDate.toString();
+                            e.printStackTrace(); }
                         Long newCalendar = dateDate.getTime();
-
-                        notes = new Note(textHader, textBody, date, 1);
-                        NotesAct.getDateBase().put(newCalendar, notes);
-
-                        finish();
+                        notes = new Note(textHader, textBody, newCalendar, 1);
+                        NotesRepository.saveNote(newCalendar, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
-                        NotesAct.impText = 0;
+                        finish();
                         return true;
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         notes = new Note(textHader, textBody, zero, 0);
-                        NotesAct.getDateBase().put(dateAndTime.getTimeInMillis(), notes);
-                        finish();
+                        NotesRepository.saveNote(Calendar.getInstance().getTimeInMillis(), notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
-                        NotesAct.impText = 0;
+                        finish();
                         return true;
                     }
-                } else if (NotesAct.impText == 1) {
+                } else if (impText == 1) {
                     if (checkBoxDate.isChecked()) {
 
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-                        if (cal.split("")[2]=="/"){
-                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-                        }
-                        Date dateDate = null;
-                        try {
-                            dateDate = formatter.parse(cal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String date = dateDate.toString();
+                        Date dateDate = Calendar.getInstance().getTime();
+                        SimpleDateFormat formatter = null;
+                        if (cal.split("")[2].equals(" ")){formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm"); }
+                        else { formatter = new SimpleDateFormat("dd/MM/yy hh:mm"); }
+                        try { dateDate = formatter.parse(cal);
+                        } catch (ParseException e) { e.printStackTrace(); }
                         Long newCalendar = dateDate.getTime();
 
-                        for (Map.Entry<Long, Note> entry : NotesAct.getDateBase().entrySet()) {
+                        for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long calLong = entry.getKey();
                             Note n = entry.getValue();
 
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                NotesAct.getDateBase().remove(calLong);
-                                notes = new Note(textHader, textBody, date, 1);
-                                NotesAct.getDateBase().put(newCalendar, notes);
+                                notes = new Note(textHader, textBody, newCalendar, 1);
+                                NotesRepository.removeNote(calLong);
+                                NotesRepository.saveNote(newCalendar, notes);
                             }
                         }
-                        finish();
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
+                        finish();
 
-                        NotesAct.impText = 0;
                         return true;
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        for (Map.Entry<Long, Note> entry : NotesAct.getDateBase().entrySet()) {
+                        for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long cal = entry.getKey();
                             Note n = entry.getValue();
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
@@ -164,16 +153,18 @@ public class WriteNotesActivity extends AppCompatActivity {
                                 cal = Calendar.getInstance().getTimeInMillis();
                             }
                         }
-                        finish();
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
-                        NotesAct.impText = 0;
+                        finish();
                         return true;
                     }
                 }
             case android.R.id.home:
+//                impText = 0;
                 finish();
-                NotesAct.impText = 0;
+//                Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
+//                intent.putExtra("impText", impText);
+//                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -181,7 +172,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     }
 
     public void setDate() {
-        new DatePickerDialog(WriteNotesActivity.this, dateDialog,
+        new DatePickerDialog(WriteNotesActivity.this, dateSetListener,
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH))
@@ -189,7 +180,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     }
 
     public void setTime(View v) {
-        new TimePickerDialog(WriteNotesActivity.this, timeDialog,
+        new TimePickerDialog(WriteNotesActivity.this, timeSetListener,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE), true)
                 .show();
@@ -202,7 +193,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         | DateUtils.FORMAT_SHOW_TIME));
     }
 
-    TimePickerDialog.OnTimeSetListener timeDialog = new TimePickerDialog.OnTimeSetListener() {
+    TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -210,7 +201,7 @@ public class WriteNotesActivity extends AppCompatActivity {
             setInitialDateTime();
         }
     };
-    DatePickerDialog.OnDateSetListener dateDialog = new DatePickerDialog.OnDateSetListener() {
+    DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
             dateAndTime.set(Calendar.YEAR, year);

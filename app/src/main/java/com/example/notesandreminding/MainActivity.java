@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         if (!settingsManager.hasPinCode()) {
             Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
             startActivity(intent);
-//            finish();
+
+            finish();
         }
 
         point1 = findViewById(R.id.textPass1);
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
     String pass = "";
     private View.OnClickListener clickListenerC = new View.OnClickListener() {
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View v) {
             pass = pass.substring(0, Math.max(0, pass.length() - 1));
@@ -73,14 +73,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void check() {
-        int unCheckedColor = getColor(R.color.pointUnChecked);
+        int unCheckedColor = getResources().getColor(R.color.pointUnChecked);
         point1.setTextColor(unCheckedColor);
         point2.setTextColor(unCheckedColor);
         point3.setTextColor(unCheckedColor);
         point4.setTextColor(unCheckedColor);
-        int checkedColor = getColor(R.color.pointChecked);
+        int checkedColor = getResources().getColor(R.color.pointChecked);
         if (pass.length() == 1) {
             point1.setTextColor(checkedColor);
         } else if (pass.length() == 2) {
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             point1.setTextColor(checkedColor);
             point2.setTextColor(checkedColor);
             point3.setTextColor(checkedColor);
-        } else if (pass.length() == 4) {
+        } else  {
             if (pass.length() == 4 && pass.equals(settingsManager.getPinCode())) {
                 Intent intent = new Intent(MainActivity.this, NotesAct.class);
                 startActivity(intent);

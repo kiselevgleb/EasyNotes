@@ -50,10 +50,10 @@ public class MapAdapter extends BaseAdapter {
         Map.Entry<Long, Note> item = getItem(position);
         String tit = item.getValue().getTitle();
         String text = item.getValue().getText();
-        String zero = item.getValue().getCalendar();
+        long zero = item.getValue().getCalendar();
         Long date = item.getKey();
         String timeString = " ";
-        if (zero != "1") {
+        if (zero != 1) {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(date);
             Date convertDate = d.getTime();

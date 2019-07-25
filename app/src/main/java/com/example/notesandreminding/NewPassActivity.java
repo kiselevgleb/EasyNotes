@@ -15,10 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class NewPassActivity extends AppCompatActivity {
-    EditText pass;
-    CheckBox showPassCheckbox;
-    Button save;
-    private String VALUE_SP = "PrivateValue";
+    private EditText pass;
+    private CheckBox showPassCheckbox;
+    private Button save;
     private SettingsManager settingsManager = MainActivity.getSettingsManager();
 
     @Override
