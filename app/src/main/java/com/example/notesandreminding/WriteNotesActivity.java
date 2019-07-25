@@ -35,7 +35,6 @@ public class WriteNotesActivity extends AppCompatActivity {
     private String sethd = null;
     private String setText = null;
     private String dateText = null;
-    private long zero = 1;
     private int checkBox;
     private int impText = 0;
 
@@ -68,7 +67,7 @@ public class WriteNotesActivity extends AppCompatActivity {
             dateText = null;
             title.setText(sethd);
             description.setText(setText);
-            dueDate.setText(dateAndTime.toString());
+//            dueDate.setText(dateAndTime.toString());
             setInitialDateTime();
         }
     }
@@ -89,20 +88,8 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Date dateDate = Calendar.getInstance().getTime();
-                        SimpleDateFormat formatter = null;
-                        if (cal.split("")[2].equals(" ")) {
-                            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-                        } else {
-                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-                        }
-                        try {
-                            dateDate = formatter.parse(cal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        Long newCalendar = dateDate.getTime();
-                        notes = new Note(textHader, textBody, newCalendar, 1);
+                        Long newCalendar = ParsDate(cal);
+                        notes = new Note(textHader, textBody, 1);
                         NotesRepository.saveNote(newCalendar, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -111,8 +98,10 @@ public class WriteNotesActivity extends AppCompatActivity {
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        notes = new Note(textHader, textBody, zero, 0);
-                        NotesRepository.saveNote(Calendar.getInstance().getTimeInMillis(), notes);
+                        String cal = dueDate.getText().toString();
+                        Long newCalendar = ParsDate(cal);
+                        notes = new Note(textHader, textBody,  0);
+                        NotesRepository.saveNote(newCalendar, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -120,34 +109,20 @@ public class WriteNotesActivity extends AppCompatActivity {
                     }
                 } else if (impText == 1) {
                     if (checkBoxDate.isChecked()) {
-
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Date dateDate = Calendar.getInstance().getTime();
-                        SimpleDateFormat formatter = null;
-                        if (cal.split("")[2].equals(" ")) {
-                            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-                        } else {
-                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-                        }
-                        try {
-                            dateDate = formatter.parse(cal);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        Long newCalendar = dateDate.getTime();
-
+                        Long newCalendar = ParsDate(cal);
                         for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long calLong = entry.getKey();
                             Note n = entry.getValue();
-
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                notes = new Note(textHader, textBody, newCalendar, 1);
+                                notes = new Note(textHader, textBody, 1);
                                 NotesRepository.removeNote(calLong);
                                 NotesRepository.saveNote(newCalendar, notes);
                             }
                         }
+
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -156,15 +131,19 @@ public class WriteNotesActivity extends AppCompatActivity {
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
+                        String calnew = dueDate.getText().toString();
+                        Long newCalendar = ParsDate(calnew);
                         for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
                             Long cal = entry.getKey();
                             Note n = entry.getValue();
                             if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                n.setTitle(textHader);
-                                n.setText(textBody);
-                                cal = Calendar.getInstance().getTimeInMillis();
+                                notes = new Note(textHader, textBody, 0);
+                                NotesRepository.removeNote(cal);
+                                NotesRepository.saveNote(newCalendar, notes);
+
                             }
                         }
+
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -177,6 +156,36 @@ public class WriteNotesActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private long ParsDate(String date){
+        Date dateDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = null;
+        if (date.length()==22) {
+            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+        }
+        else if (date.length()==21) {
+            formatter = new SimpleDateFormat("d MMMM yyyy г., hh:mm");
+        }
+        else if (date.length()==14){
+            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+        }
+
+//        if (date.split("")[2].hashCode()==32) {
+//            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+//        }
+//        else if (date.split("")[1].hashCode()==32) {
+//            formatter = new SimpleDateFormat("d MMMM yyyy г., hh:mm");
+//        }
+//        else if (date.split("")[2].hashCode()==47){
+//            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+//        }
+        try {
+            dateDate = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateDate.getTime();
     }
 
     public void setDate() {

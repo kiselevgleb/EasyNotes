@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotesAct extends AppCompatActivity {
-    public FloatingActionButton add;
-    public ListView listView;
+    private FloatingActionButton add;
+    private ListView listView;
     private int impText = 0;
 
     @Override
@@ -106,10 +106,11 @@ public class NotesAct extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             impText = 0;
+            finish();
+
             Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
             intent.putExtra("impText", impText);
             startActivity(intent);
-            finish();
 
         }
     };

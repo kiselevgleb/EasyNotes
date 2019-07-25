@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -50,10 +51,11 @@ public class MapAdapter extends BaseAdapter {
         Map.Entry<Long, Note> item = getItem(position);
         String tit = item.getValue().getTitle();
         String text = item.getValue().getText();
-        long zero = item.getValue().getCalendar();
+        int checkBox = item.getValue().getCheckBox();
+//        long zero = item.getValue().getCalendar();
         Long date = item.getKey();
         String timeString = " ";
-        if (zero != 1) {
+        if (checkBox == 1) {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(date);
             Date convertDate = d.getTime();
