@@ -38,6 +38,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     private long zero = 1;
     private int checkBox;
     private int impText = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,11 +91,16 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String cal = dueDate.getText().toString();
                         Date dateDate = Calendar.getInstance().getTime();
                         SimpleDateFormat formatter = null;
-                        if (cal.split("")[2].equals(" ")){formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");}
-                        else {formatter = new SimpleDateFormat("dd/MM/yy hh:mm");}
-                        try { dateDate = formatter.parse(cal);
+                        if (cal.split("")[2].equals(" ")) {
+                            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+                        } else {
+                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+                        }
+                        try {
+                            dateDate = formatter.parse(cal);
                         } catch (ParseException e) {
-                            e.printStackTrace(); }
+                            e.printStackTrace();
+                        }
                         Long newCalendar = dateDate.getTime();
                         notes = new Note(textHader, textBody, newCalendar, 1);
                         NotesRepository.saveNote(newCalendar, notes);
@@ -120,10 +126,16 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String cal = dueDate.getText().toString();
                         Date dateDate = Calendar.getInstance().getTime();
                         SimpleDateFormat formatter = null;
-                        if (cal.split("")[2].equals(" ")){formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm"); }
-                        else { formatter = new SimpleDateFormat("dd/MM/yy hh:mm"); }
-                        try { dateDate = formatter.parse(cal);
-                        } catch (ParseException e) { e.printStackTrace(); }
+                        if (cal.split("")[2].equals(" ")) {
+                            formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
+                        } else {
+                            formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+                        }
+                        try {
+                            dateDate = formatter.parse(cal);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         Long newCalendar = dateDate.getTime();
 
                         for (Map.Entry<Long, Note> entry : NotesRepository.getNotes().entrySet()) {
@@ -160,11 +172,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                     }
                 }
             case android.R.id.home:
-//                impText = 0;
                 finish();
-//                Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
-//                intent.putExtra("impText", impText);
-//                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

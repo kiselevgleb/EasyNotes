@@ -20,14 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NotesAct extends AppCompatActivity {
-//    private static HashMap<Long, Note> dateBase = new HashMap<>();
     public FloatingActionButton add;
     public ListView listView;
     private int impText = 0;
-
-//    public static HashMap<Long, Note> getDateBase() {
-//        return dateBase;
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +45,18 @@ public class NotesAct extends AppCompatActivity {
             final long key = item.getKey();
 
             AlertDialog.Builder builder = new AlertDialog.Builder(NotesAct.this)
-            .setTitle(R.string.Warning)
-            .setMessage(R.string.Are_you_sure)
-            .setCancelable(false)
-            .setPositiveButton(R.string.DELETE, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int arg1) {
-                    NotesRepository.removeNote(key);
-                    Intent intent = new Intent(NotesAct.this, NotesAct.class);
-                    startActivity(intent);
-                    finish();
+                    .setTitle(R.string.Warning)
+                    .setMessage(R.string.Are_you_sure)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.DELETE, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            NotesRepository.removeNote(key);
+                            Intent intent = new Intent(NotesAct.this, NotesAct.class);
+                            startActivity(intent);
+                            finish();
 
-                }
-            });
+                        }
+                    });
             builder.setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int arg1) {
                     dialog.cancel();
@@ -84,11 +79,11 @@ public class NotesAct extends AppCompatActivity {
                 Note note = (Note) item.getValue();
                 String timeString = " ";
 //                if (item.getKey() != 0) {
-                    Calendar d = Calendar.getInstance();
-                    d.setTimeInMillis(item.getKey());
-                    Date convertDate = d.getTime();
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-                    timeString = formatter.format(convertDate);
+                Calendar d = Calendar.getInstance();
+                d.setTimeInMillis(item.getKey());
+                Date convertDate = d.getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+                timeString = formatter.format(convertDate);
 //                }
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("haderEditText", note.getTitle());
