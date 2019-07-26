@@ -3,7 +3,6 @@ package com.example.notesandreminding;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class NotesAct extends AppCompatActivity {
     private ListView listView;
     private int impText = 0;
-
+    MapAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +39,12 @@ public class NotesAct extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Map.Entry<Long, Note> item = (Map.Entry) MapAdapter.mData.get(position);
+            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
             final long key = item.getKey();
 
             AlertDialog.Builder builder = new AlertDialog.Builder(NotesAct.this)
                     .setTitle(R.string.Warning)
-                    .setMessage(R.string.Are_you_sure)
+                    .setMessage(R.string.Sure)
                     .setCancelable(false)
                     .setPositiveButton(R.string.DELETE, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
@@ -71,31 +71,28 @@ public class NotesAct extends AppCompatActivity {
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Map.Entry<Long, Note> item = (Map.Entry) MapAdapter.mData.get(position);
+            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
             impText = 1;
             if (item.getKey() != null || item.getValue() != null) {
                 Note note = (Note) item.getValue();
                 String timeString = " ";
-//                if (item.getKey() != 0) {
                 Calendar d = Calendar.getInstance();
                 d.setTimeInMillis(item.getValue().getDeadline());
                 Date convertDate = d.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
                 timeString = formatter.format(convertDate);
-//                }
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
-                intent.putExtra("haderEditText", note.getTitle());
-                intent.putExtra("textEditText", note.getText());
-                intent.putExtra("dateEditText", timeString);
-                intent.putExtra("checkBox", note.getCheckBox());
                 intent.putExtra("impText", impText);
+                intent.putExtra("IdLong", item.getKey());
                 startActivity(intent);
             }
         }
     };
 
     private void showNotes(HashMap<Long, Note> not) {
-        MapAdapter adapter = new MapAdapter(not);
+        ArrayList list = new ArrayList();
+        list.addAll(not.entrySet());
+        adapter = new MapAdapter(list);
         listView.setAdapter(adapter);
     }
 
@@ -105,9 +102,7 @@ public class NotesAct extends AppCompatActivity {
         public void onClick(View v) {
             impText = 0;
             finish();
-
             Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
-            intent.putExtra("impText", impText);
             startActivity(intent);
 
         }

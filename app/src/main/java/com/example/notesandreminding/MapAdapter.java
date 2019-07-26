@@ -16,12 +16,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
-    public static ArrayList mData;
+    public ArrayList mData;
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
 
-    public MapAdapter(Map<Long, Note> map) {
-        mData = new ArrayList();
-        mData.addAll(map.entrySet());
+    public MapAdapter(ArrayList list) {
+        mData = list;
     }
 
     @Override
