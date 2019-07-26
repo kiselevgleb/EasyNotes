@@ -11,23 +11,23 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/passNew"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberPassword"
-        android:layout_gravity="top|start"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/pass"
-        android:hint="@string/pass"
-        android:textSize="30sp"
-        tools:text="@string/pass"
-        android:layout_weight="1"
-        android:maxLength="4" />
+        <EditText
+            android:id="@+id/passNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/pass"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textSize="30sp"
+            tools:text="@string/pass" />
 
         <CheckBox
             android:id="@+id/checkBoxPass"

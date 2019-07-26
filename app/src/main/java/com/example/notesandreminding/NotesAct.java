@@ -23,6 +23,7 @@ public class NotesAct extends AppCompatActivity {
     private ListView listView;
     private int impText = 0;
     MapAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

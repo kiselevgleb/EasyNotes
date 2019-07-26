@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             point1.setTextColor(checkedColor);
             point2.setTextColor(checkedColor);
             point3.setTextColor(checkedColor);
-        } else  {
+        } else {
             if (pass.length() == 4 && pass.equals(settingsManager.getPinCode())) {
                 Intent intent = new Intent(MainActivity.this, NotesAct.class);
                 startActivity(intent);

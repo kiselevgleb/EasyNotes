@@ -52,7 +52,6 @@ public class MapAdapter extends BaseAdapter {
         String tit = item.getValue().getTitle();
         String text = item.getValue().getText();
         int checkBox = item.getValue().getCheckBox();
-//        long zero = item.getValue().getCalendar();
         Long date = item.getValue().getDeadline();
         String timeString = " ";
         if (checkBox == 1) {
@@ -63,10 +62,21 @@ public class MapAdapter extends BaseAdapter {
         }
 
 
-        ((TextView) result.findViewById(R.id.title)).setText(tit);
-        ((TextView) result.findViewById(R.id.subtitle)).setText(text);
-        ((TextView) result.findViewById(R.id.textdate)).setText(timeString);
-
+        TextView title = ((TextView) result.findViewById(R.id.title));
+        title.setText(tit);
+        if (title.getText().length() == 0) {
+            title.setVisibility(View.GONE);
+        }
+        TextView subtitle = ((TextView) result.findViewById(R.id.subtitle));
+        subtitle.setText(text);
+        if (subtitle.getText().length() == 0) {
+            subtitle.setVisibility(View.GONE);
+        }
+        TextView textdate = ((TextView) result.findViewById(R.id.textdate));
+        textdate.setText(timeString);
+        if (textdate.getText() == " ") {
+            textdate.setVisibility(View.GONE);
+        }
         return result;
     }
 }

@@ -47,22 +47,25 @@ public class WriteNotesActivity extends AppCompatActivity {
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
         try {
-        impText = getIntent().getExtras().getInt("impText");
+            impText = getIntent().getExtras().getInt("impText");
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         if (impText == 1) {
             dateText = getIntent().getExtras().getLong("IdLong");
-                Note n = NotesRepository.getNote(dateText);
-                    sethd = n.getTitle();
-                    setText = n.getText();
-                    checkBox = n.getCheckBox();
-                    inputDate = n.getDeadline();
-                    if (checkBox == 1) { checkBoxDate.setChecked(true);}
-                    else { checkBoxDate.setChecked(false);}
-                    title.setText(sethd);
-                    description.setText(setText);
-                    dueDate.setText(ConvertLongToString(inputDate));
+            Note n = NotesRepository.getNote(dateText);
+            sethd = n.getTitle();
+            setText = n.getText();
+            checkBox = n.getCheckBox();
+            inputDate = n.getDeadline();
+            if (checkBox == 1) {
+                checkBoxDate.setChecked(true);
+            } else {
+                checkBoxDate.setChecked(false);
+            }
+            title.setText(sethd);
+            description.setText(setText);
+            dueDate.setText(ConvertLongToString(inputDate));
         } else {
             sethd = null;
             setText = null;
@@ -91,7 +94,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String cal = dueDate.getText().toString();
                         Long deadLine = ParsDate(cal);
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
-                        notes = new Note(textHader, textBody, deadLine,1);
+                        notes = new Note(textHader, textBody, deadLine, 1);
                         NotesRepository.saveNote(dateUpDate, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -102,7 +105,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
-                        notes = new Note(textHader, textBody,  0,0);
+                        notes = new Note(textHader, textBody, 0, 0);
                         NotesRepository.saveNote(dateUpDate, notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -117,11 +120,11 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = ParsDate(cal);
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
                         Note n = NotesRepository.getNote(dateText);
-                            if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                notes = new Note(textHader, textBody, deadLine,1);
-                                NotesRepository.removeNote(dateText);
-                                NotesRepository.saveNote(dateUpDate, notes);
-                            }
+                        if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
+                            notes = new Note(textHader, textBody, deadLine, 1);
+                            NotesRepository.removeNote(dateText);
+                            NotesRepository.saveNote(dateUpDate, notes);
+                        }
 
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -135,12 +138,12 @@ public class WriteNotesActivity extends AppCompatActivity {
 
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
                         Note n = NotesRepository.getNote(dateText);
-                            if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
-                                notes = new Note(textHader, textBody, 0,0);
-                                NotesRepository.removeNote(dateText);
-                                NotesRepository.saveNote(dateUpDate, notes);
+                        if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
+                            notes = new Note(textHader, textBody, 0, 0);
+                            NotesRepository.removeNote(dateText);
+                            NotesRepository.saveNote(dateUpDate, notes);
 
-                            }
+                        }
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -155,23 +158,22 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
     }
 
-    private String ConvertLongToString (long l){
+    private String ConvertLongToString(long l) {
         Calendar d = Calendar.getInstance();
         d.setTimeInMillis(l);
         Date convertDate = d.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
         return formatter.format(convertDate);
     }
-    private long ParsDate(String date){
+
+    private long ParsDate(String date) {
         Date dateDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = null;
-        if (date.length()==22) {
+        if (date.length() == 22) {
             formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-        }
-        else if (date.length()==21) {
+        } else if (date.length() == 21) {
             formatter = new SimpleDateFormat("d MMMM yyyy г., hh:mm");
-        }
-        else if (date.length()==14){
+        } else if (date.length() == 14) {
             formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
         }
         try {

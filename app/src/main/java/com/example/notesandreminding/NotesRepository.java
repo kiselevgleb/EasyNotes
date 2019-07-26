@@ -6,23 +6,23 @@ public class NotesRepository {
 
     private static HashMap<Long, Note> notes = new HashMap<>();
 
-    public static HashMap<Long, Note> getNotes(){
+    public static HashMap<Long, Note> getNotes() {
         return notes;
     }
 
-    public static void removeNote(Long noteId){
+    public static void removeNote(Long noteId) {
         notes.remove(noteId);
     }
 
-    public static void saveNote(Long l,Note n){
-        notes.put(l,n);
+    public static void saveNote(Long l, Note n) {
+        notes.put(l, n);
     }
 
 //    public void createNote(){
 //
 //    }
 
-    public static Note getNote(Long noteId){
+    public static Note getNote(Long noteId) {
         return notes.get(noteId);
     }
 }
