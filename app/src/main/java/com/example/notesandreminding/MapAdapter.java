@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
-    public ArrayList mData;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
+    public ArrayList<Map.Entry<Long,Note>> mData;
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
 
     public MapAdapter(ArrayList list) {
         mData = list;

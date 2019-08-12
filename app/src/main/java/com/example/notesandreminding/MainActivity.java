@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView point3;
     private TextView point4;
     private SettingsManager settingsManager;
+    private String pass = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(clickListenerC);
     }
 
-    String pass = "";
     private View.OnClickListener clickListenerC = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void check() {
+    private void check() {
         int unCheckedColor = getResources().getColor(R.color.pointUnChecked);
         point1.setTextColor(unCheckedColor);
         point2.setTextColor(unCheckedColor);
@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             this.number = number;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View v) {
             pass += number;
