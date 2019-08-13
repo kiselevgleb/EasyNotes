@@ -26,19 +26,6 @@ public class NotesAct extends AppCompatActivity {
     private int impText = 0;
     MapAdapter adapter;
 
-    HashMap<Long, Note> n;
-    private static final String KEY = "KEY";
-
-    @Override
-    public void onSaveInstanceState(Bundle saveInstanceState) {
-        super.onSaveInstanceState(saveInstanceState);
-
-        HashMap<Long, Note> not = NotesRepository.getNotes();
-        if (not.entrySet().size() > 0) {
-            saveInstanceState.putSerializable(KEY, not);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +36,6 @@ public class NotesAct extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY))
-            n = (HashMap<Long, Note>) savedInstanceState.getSerializable(KEY);
-        ArrayList list = new ArrayList();
-        if (list.size()>0){
-        list.addAll(n.entrySet());
-        adapter = new MapAdapter(list);
-        listView.setAdapter(adapter);}
     }
 
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {

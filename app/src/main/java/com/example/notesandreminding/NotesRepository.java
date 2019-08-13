@@ -18,10 +18,6 @@ public class NotesRepository {
         notes.put(l, n);
     }
 
-//    public void createNote(){
-//
-//    }
-
     public static Note getNote(Long noteId) {
         return notes.get(noteId);
     }

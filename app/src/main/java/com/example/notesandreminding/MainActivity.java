@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -27,6 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView point4;
     private SettingsManager settingsManager;
     private String pass = "";
+    private static final String PASS = "PASS";
+    private static final String COLOR1 = "COLOR1";
+    private static final String COLOR2 = "COLOR2";
+    private static final String COLOR3 = "COLOR3";
+    private static final String COLOR4 = "COLOR4";
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(PASS, pass);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button9).setOnClickListener(new NumberClickListener(9));
         findViewById(R.id.button0).setOnClickListener(new NumberClickListener(0));
         findViewById(R.id.button).setOnClickListener(clickListenerC);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(PASS)) {
+            pass = savedInstanceState.getString(PASS);
+            check();
+        }
     }
 
     private View.OnClickListener clickListenerC = new View.OnClickListener() {
