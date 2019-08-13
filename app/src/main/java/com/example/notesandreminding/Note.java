@@ -1,10 +1,5 @@
 package com.example.notesandreminding;
 
-import android.widget.CheckBox;
-
-import java.io.Serializable;
-import java.util.Calendar;
-
 public class Note {
     String title;
     String text;

@@ -3,6 +3,7 @@ package com.example.notesandreminding;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -42,8 +43,8 @@ public class NotesAct extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
-            final long key = item.getKey();
+//            ArrayList<Note> item = adapter.mData.get(position);
+            final Note val = adapter.mData.get(position);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(NotesAct.this)
                     .setTitle(R.string.Warning)
@@ -51,7 +52,7 @@ public class NotesAct extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.DELETE, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                            NotesRepository.removeNote(key);
+                            NotesRepository.removeNote(val);
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
                             startActivity(intent);
                             finish();
@@ -74,28 +75,27 @@ public class NotesAct extends AppCompatActivity {
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
+//            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
+            final Note val = adapter.mData.get(position);
             impText = 1;
-            if (item.getKey() != null || item.getValue() != null) {
-                Note note = (Note) item.getValue();
+            if (val != null) {
+
                 String timeString = " ";
                 Calendar d = Calendar.getInstance();
-                d.setTimeInMillis(item.getValue().getDeadline());
+                d.setTimeInMillis(val.getDeadline());
                 Date convertDate = d.getTime();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
                 timeString = formatter.format(convertDate);
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("impText", impText);
-                intent.putExtra("IdLong", item.getKey());
+                intent.putExtra("Note", (Parcelable) val);
                 startActivity(intent);
             }
         }
     };
 
-    private void showNotes(HashMap<Long, Note> not) {
-        ArrayList list = new ArrayList();
-        list.addAll(not.entrySet());
-        adapter = new MapAdapter(list);
+    private void showNotes(ArrayList<Note> not) {
+        adapter = new MapAdapter(not);
         listView.setAdapter(adapter);
     }
 

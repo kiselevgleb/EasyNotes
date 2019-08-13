@@ -52,8 +52,8 @@ public class WriteNotesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if (impText == 1) {
-            dateText = getIntent().getExtras().getLong("IdLong");
-            Note n = NotesRepository.getNote(dateText);
+//            dateText = getIntent().getExtras().getLong("Note");
+            Note n = (Note) getIntent().getExtras().get("Note");
             sethd = n.getTitle();
             setText = n.getText();
             checkBox = n.getCheckBox();
@@ -95,7 +95,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = ParsDate(cal);
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
                         notes = new Note(textHader, textBody, deadLine, 1);
-                        NotesRepository.saveNote(dateUpDate, notes);
+                        NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -106,7 +106,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String cal = dueDate.getText().toString();
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
                         notes = new Note(textHader, textBody, 0, 0);
-                        NotesRepository.saveNote(dateUpDate, notes);
+                        NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
@@ -119,29 +119,27 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String cal = dueDate.getText().toString();
                         Long deadLine = ParsDate(cal);
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
-                        Note n = NotesRepository.getNote(dateText);
+                        Note n = NotesRepository.getNote(deadLine);
                         if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
                             notes = new Note(textHader, textBody, deadLine, 1);
-                            NotesRepository.removeNote(dateText);
-                            NotesRepository.saveNote(dateUpDate, notes);
+                            NotesRepository.removeNote(n);
+                            NotesRepository.saveNote(notes);
                         }
-
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();
-
                         return true;
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String calnew = dueDate.getText().toString();
-
+                        Long deadLine = ParsDate(calnew);
                         Long dateUpDate = Calendar.getInstance().getTimeInMillis();
-                        Note n = NotesRepository.getNote(dateText);
+                        Note n = NotesRepository.getNote(deadLine);
                         if (n.getTitle().equals(sethd) && n.getText().equals(setText)) {
                             notes = new Note(textHader, textBody, 0, 0);
-                            NotesRepository.removeNote(dateText);
-                            NotesRepository.saveNote(dateUpDate, notes);
+                            NotesRepository.removeNote(n);
+                            NotesRepository.saveNote(notes);
 
                         }
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
@@ -169,10 +167,30 @@ public class WriteNotesActivity extends AppCompatActivity {
     private long ParsDate(String date) {
         Date dateDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = null;
-        if (date.length() == 22) {
+        if (date.length() == 22 && !date.split("")[1].equals(" ")) {
             formatter = new SimpleDateFormat("dd MMMM yyyy г., hh:mm");
-        } else if (date.length() == 21) {
+        } else if (date.length() == 21 && date.split("")[1].equals(" ")) {
             formatter = new SimpleDateFormat("d MMMM yyyy г., hh:mm");
+        } else if (date.length() == 24 && !date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("dd MMMMMM yyyy г., hh:mm");
+        } else if (date.length() == 23 && date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("d MMMMMM yyyy г., hh:mm");
+        } else if (date.length() == 25 && !date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("dd MMMMMMM yyyy г., hh:mm");
+        } else if (date.length() == 24 && date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("d MMMMMMM yyyy г., hh:mm");
+        } else if (date.length() == 23 && !date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("dd MMMMM yyyy г., hh:mm");
+        } else if (date.length() == 22 && date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("d MMMMM yyyy г., hh:mm");
+        } else if (date.length() == 21 && !date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("dd MMM yyyy г., hh:mm");
+        } else if (date.length() == 20) {
+            formatter = new SimpleDateFormat("d MMM yyyy г., hh:mm");
+        } else if (date.length() == 26) {
+            formatter = new SimpleDateFormat("dd MMMMMMMM yyyy г., hh:mm");
+        } else if (date.length() == 25 && date.split("")[1].equals(" ")) {
+            formatter = new SimpleDateFormat("d MMMMMMMM yyyy г., hh:mm");
         } else if (date.length() == 14) {
             formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
         }

@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MapAdapter extends BaseAdapter {
-    public ArrayList<Map.Entry<Long,Note>> mData;
+    public ArrayList<Note> mData;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
 
     public MapAdapter(ArrayList list) {
@@ -29,8 +29,8 @@ public class MapAdapter extends BaseAdapter {
     }
 
     @Override
-    public Map.Entry<Long, Note> getItem(int position) {
-        return (Map.Entry) mData.get(position);
+    public Note getItem(int position) {
+        return mData.get(position);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class MapAdapter extends BaseAdapter {
             result = convertView;
         }
 
-        Map.Entry<Long, Note> item = getItem(position);
-        String tit = item.getValue().getTitle();
-        String text = item.getValue().getText();
-        int checkBox = item.getValue().getCheckBox();
-        Long date = item.getValue().getDeadline();
+        Note item = getItem(position);
+        String tit = item.getTitle();
+        String text = item.getText();
+        int checkBox = item.getCheckBox();
+        Long date = item.getDeadline();
         String timeString = " ";
         if (checkBox == 1) {
             Calendar d = Calendar.getInstance();
