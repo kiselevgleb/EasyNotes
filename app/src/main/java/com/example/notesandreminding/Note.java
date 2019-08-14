@@ -1,6 +1,8 @@
 package com.example.notesandreminding;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
     String title;
     String text;
     long deadline;

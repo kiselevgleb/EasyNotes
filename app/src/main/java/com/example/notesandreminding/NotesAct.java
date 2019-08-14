@@ -13,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +30,14 @@ public class NotesAct extends AppCompatActivity {
     private ListView listView;
     private int impText = 0;
     MapAdapter adapter;
+    ArrayList<Note> notesNew;
+    private static final String LIST = "list";
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        save(listView);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -35,11 +45,20 @@ public class NotesAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
-        showNotes(NotesRepository.getNotes());
+        notesNew = NotesRepository.getNotes();
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(LIST)) {
+//            notesNew = (ArrayList<Note>)savedInstanceState.getSerializable(LIST);
+            open(listView);
+        }
+
+        showNotes(notesNew);
 
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
+
+
     }
 
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
@@ -132,5 +151,25 @@ public class NotesAct extends AppCompatActivity {
         }
     }
 
+    public void save(View view) {
+
+        boolean result = JSONHelper.exportToJSON(this, notesNew);
+        if (result) {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void open(View view) {
+        notesNew = JSONHelper.importFromJSON(this);
+        if (notesNew != null) {
+            adapter = new MapAdapter(notesNew);
+            listView.setAdapter(adapter);
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

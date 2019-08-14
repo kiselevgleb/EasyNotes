@@ -2,6 +2,9 @@ package com.example.notesandreminding;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +18,7 @@ public class NotesRepository {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void sort() {
         Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
-        Collections.sort(notes,comNote);
+        Collections.sort(notes, comNote);
     }
 
     public static ArrayList<Note> getNotes() {
@@ -39,4 +42,6 @@ public class NotesRepository {
         }
         return n;
     }
+
+
 }

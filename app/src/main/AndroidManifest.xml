@@ -8,13 +8,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewPassActivity"></activity>
-        <activity android:name=".WriteNotesActivity" />
+
+        <activity
+        android:label="@string/_set"
+            android:name=".NewPassActivity">
+        </activity>
+
+        <activity
+            android:label="@string/_newNote"
+            android:name=".WriteNotesActivity">
+        </activity>
+
         <activity
             android:name=".NotesAct"
             android:label="@string/title_activity_notes">
 
-            <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
