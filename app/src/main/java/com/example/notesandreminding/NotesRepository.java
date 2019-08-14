@@ -1,6 +1,10 @@
 package com.example.notesandreminding;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -8,15 +12,12 @@ public class NotesRepository {
 
     private static ArrayList<Note> notes = new ArrayList<>();
 
-    //    Comparator<Note> compNote = new Comparator<Note>() {
-//        @Override
-//        public int compare(Note o1, Note o2) {
-//
-//            return (int) o1.getDeadline()-o2.getDeadline();
-//        }
-//    };
-//    Collections.sort(notes, compNote);
-//
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void sort() {
+        Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
+        Collections.sort(notes,comNote);
+    }
+
     public static ArrayList<Note> getNotes() {
         return notes;
     }

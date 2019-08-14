@@ -2,8 +2,10 @@ package com.example.notesandreminding;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -27,6 +29,7 @@ public class NotesAct extends AppCompatActivity {
     private int impText = 0;
     MapAdapter adapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,6 @@ public class NotesAct extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-//            ArrayList<Note> item = adapter.mData.get(position);
             final Note val = adapter.mData.get(position);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(NotesAct.this)
@@ -71,11 +73,9 @@ public class NotesAct extends AppCompatActivity {
         }
     };
 
-
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Map.Entry<Long, Note> item = (Map.Entry) adapter.mData.get(position);
             final Note val = adapter.mData.get(position);
             impText = 1;
             if (val != null) {
@@ -88,15 +88,17 @@ public class NotesAct extends AppCompatActivity {
                 timeString = formatter.format(convertDate);
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("impText", impText);
-                intent.putExtra("Note", (Parcelable) val);
+                intent.putExtra("Note", val.getDeadline());
                 startActivity(intent);
             }
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void showNotes(ArrayList<Note> not) {
         adapter = new MapAdapter(not);
         listView.setAdapter(adapter);
+        NotesRepository.sort();
     }
 
     private View.OnClickListener addNoteClickListener = new View.OnClickListener() {
