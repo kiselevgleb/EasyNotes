@@ -45,10 +45,10 @@ public class NotesAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
+        NotesRepository.sort();
         notesNew = NotesRepository.getNotes();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(LIST)) {
-//            notesNew = (ArrayList<Note>)savedInstanceState.getSerializable(LIST);
             open(listView);
         }
 
@@ -117,7 +117,6 @@ public class NotesAct extends AppCompatActivity {
     private void showNotes(ArrayList<Note> not) {
         adapter = new MapAdapter(not);
         listView.setAdapter(adapter);
-        NotesRepository.sort();
     }
 
     private View.OnClickListener addNoteClickListener = new View.OnClickListener() {
@@ -166,10 +165,11 @@ public class NotesAct extends AppCompatActivity {
         if (notesNew != null) {
             adapter = new MapAdapter(notesNew);
             listView.setAdapter(adapter);
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
         }
+//        else {
+////            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+//        }
     }
 
 }

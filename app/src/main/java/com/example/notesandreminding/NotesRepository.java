@@ -13,12 +13,27 @@ import java.util.Comparator;
 
 public class NotesRepository {
 
-    private static ArrayList<Note> notes = new ArrayList<>();
+    public static ArrayList<Note> notes = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void sort() {
+        ArrayList<Note> notesWithDL = new ArrayList<>();
+        ArrayList<Note> notesWithoutDL = new ArrayList<>();
+        for (int i = 0; i < notes.size(); i++) {
+            if (notes.get(i).getDeadline() < 34712658000000L) {
+                notesWithDL.add(notes.get(i));
+            } else {
+                notesWithoutDL.add(notes.get(i));
+            }
+        }
         Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
-        Collections.sort(notes, comNote);
+        Collections.sort(notesWithDL, comNote);
+        Collections.sort(notesWithoutDL, comNote);
+        Collections.reverse(notesWithoutDL);
+        notes = new ArrayList<>();
+        notes.addAll(notesWithDL);
+        notes.addAll(notesWithoutDL);
+
     }
 
     public static ArrayList<Note> getNotes() {

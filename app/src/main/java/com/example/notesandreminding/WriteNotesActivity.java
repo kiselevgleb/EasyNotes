@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -71,8 +74,18 @@ public class WriteNotesActivity extends AppCompatActivity {
             dateText = null;
             title.setText(sethd);
             description.setText(setText);
-            setInitialDateTime();
+            dueDate.setText("");
         }
+        checkBoxDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+                    dueDate.setText("");
+                }
+            }
+        });
     }
 
     @Override
@@ -102,8 +115,9 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String cal = dueDate.getText().toString();
-                        Long deadLine = ParsDate(cal);
-                        notes = new Note(textHader, textBody, deadLine, 0);
+                        Long deadLine = 34712658000000L;
+                        Long deadLineChange = deadLine + Calendar.getInstance().getTimeInMillis();
+                        notes = new Note(textHader, textBody, deadLineChange, 0);
                         NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -128,9 +142,10 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         String calnew = dueDate.getText().toString();
-                        Long deadLine = ParsDate(calnew);
+                        Long deadLine = 34712658000000L;
+                        Long deadLineChange = deadLine + Calendar.getInstance().getTimeInMillis();
                         Note n = NotesRepository.getNote(inputDate);
-                        notes = new Note(textHader, textBody, deadLine, 0);
+                        notes = new Note(textHader, textBody, deadLineChange, 0);
                         NotesRepository.removeNote(n);
                         NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
@@ -209,6 +224,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     }
 
     private void setInitialDateTime() {
+
         dueDate.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
