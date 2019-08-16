@@ -3,10 +3,38 @@ package com.example.notesandreminding;
 import java.io.Serializable;
 
 public class Note implements Serializable {
-    String title;
-    String text;
-    long deadline;
-    int checkBoxIsChecked;
+    private String title;
+    private String text;
+    private long deadline;
+    private boolean checkBoxIsChecked;
+    private long id;
+    private long editDate;
+
+    public long getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(long editDate) {
+        this.editDate = editDate;
+    }
+
+    public Note(String title, String text, long deadline, boolean checkBoxIsChecked, long id, long editDate) {
+        this.title = title;
+        this.text = text;
+        this.deadline = deadline;
+        this.checkBoxIsChecked = checkBoxIsChecked;
+        this.id = id;
+        this.editDate = editDate;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 
     public long getDeadline() {
         return deadline;
@@ -16,26 +44,20 @@ public class Note implements Serializable {
         this.deadline = deadline;
     }
 
-    public int getCheckBoxIsChecked() {
+    public boolean getCheckBoxIsChecked() {
         return checkBoxIsChecked;
     }
 
-    public void setCheckBoxIsChecked(int checkBoxIsChecked) {
+    public void setCheckBoxIsChecked(boolean checkBoxIsChecked) {
         this.checkBoxIsChecked = checkBoxIsChecked;
     }
 
-    public Note(String title, String text, long deadline, int checkBoxIsChecked) {
-        this.title = title;
-        this.text = text;
-        this.deadline = deadline;
-        this.checkBoxIsChecked = checkBoxIsChecked;
-    }
 
-    public int getCheckBox() {
+    public boolean getCheckBox() {
         return checkBoxIsChecked;
     }
 
-    public void setCheckBox(int checkBox) {
+    public void setCheckBox(boolean checkBox) {
         this.checkBoxIsChecked = checkBox;
     }
 

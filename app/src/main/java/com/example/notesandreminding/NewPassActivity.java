@@ -52,7 +52,7 @@ public class NewPassActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(getApplicationContext(), R.string.pass_eror, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.pass_wrong, Toast.LENGTH_SHORT).show();
             }
         }
     };

@@ -22,7 +22,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:contentDescription="@string/textDesc"
-            android:hint="@string/Title"
+            android:hint="@string/title"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="30sp"
@@ -40,7 +40,7 @@
             android:layout_marginBottom="00dp"
             android:contentDescription="@string/textDesc"
             android:gravity="top"
-            android:hint="@string/Body"
+            android:hint="@string/body"
             android:inputType=""
             android:textSize="18sp"
             tools:text="Body" />

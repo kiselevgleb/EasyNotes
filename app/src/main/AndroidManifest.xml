@@ -15,7 +15,7 @@
         </activity>
 
         <activity
-            android:label="@string/_newNote"
+            android:label="@string/new_note"
             android:name=".WriteNotesActivity">
         </activity>
 

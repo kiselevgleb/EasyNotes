@@ -32,6 +32,7 @@ public class NotesAct extends AppCompatActivity {
     MapAdapter adapter;
     ArrayList<Note> notesNew;
     private static final String LIST = "list";
+    private SettingsManager settingsManager;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class NotesAct extends AppCompatActivity {
         save(listView);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,7 @@ public class NotesAct extends AppCompatActivity {
         notesNew = NotesRepository.getNotes();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(LIST)) {
+
             open(listView);
         }
 
@@ -57,8 +58,6 @@ public class NotesAct extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
-
-
     }
 
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
@@ -68,10 +67,10 @@ public class NotesAct extends AppCompatActivity {
             final Note val = adapter.mData.get(position);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(NotesAct.this)
-                    .setTitle(R.string.Warning)
+                    .setTitle(R.string.warning)
                     .setMessage(R.string.Sure)
                     .setCancelable(false)
-                    .setPositiveButton(R.string.DELETE, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
                             NotesRepository.removeNote(val);
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
@@ -80,7 +79,7 @@ public class NotesAct extends AppCompatActivity {
 
                         }
                     });
-            builder.setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int arg1) {
                     dialog.cancel();
                 }
@@ -107,13 +106,12 @@ public class NotesAct extends AppCompatActivity {
                 timeString = formatter.format(convertDate);
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("impText", impText);
-                intent.putExtra("Note", val.getDeadline());
+                intent.putExtra("ID", val.getId());
                 startActivity(intent);
             }
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void showNotes(ArrayList<Note> not) {
         adapter = new MapAdapter(not);
         listView.setAdapter(adapter);

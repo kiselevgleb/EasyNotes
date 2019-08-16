@@ -29,10 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private SettingsManager settingsManager;
     private String pass = "";
     private static final String PASS = "PASS";
-    private static final String COLOR1 = "COLOR1";
-    private static final String COLOR2 = "COLOR2";
-    private static final String COLOR3 = "COLOR3";
-    private static final String COLOR4 = "COLOR4";
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

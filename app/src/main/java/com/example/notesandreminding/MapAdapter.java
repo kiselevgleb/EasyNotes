@@ -19,7 +19,7 @@ public class MapAdapter extends BaseAdapter {
     public ArrayList<Note> mData;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
 
-    public MapAdapter(ArrayList list) {
+    public MapAdapter(ArrayList<Note> list) {
         mData = list;
     }
 
@@ -51,10 +51,10 @@ public class MapAdapter extends BaseAdapter {
         Note item = getItem(position);
         String tit = item.getTitle();
         String text = item.getText();
-        int checkBox = item.getCheckBox();
+        boolean checkBox = item.getCheckBox();
         Long date = item.getDeadline();
         String timeString = " ";
-        if (checkBox == 1) {
+        if (checkBox == true) {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(date);
             Date convertDate = d.getTime();

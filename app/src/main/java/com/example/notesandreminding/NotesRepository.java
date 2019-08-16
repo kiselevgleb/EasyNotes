@@ -13,20 +13,33 @@ import java.util.Comparator;
 
 public class NotesRepository {
 
-    public static ArrayList<Note> notes = new ArrayList<>();
+    private static ArrayList<Note> notes = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void sort() {
+
+    static void sort() {
         ArrayList<Note> notesWithDL = new ArrayList<>();
         ArrayList<Note> notesWithoutDL = new ArrayList<>();
         for (int i = 0; i < notes.size(); i++) {
-            if (notes.get(i).getDeadline() < 34712658000000L) {
+            if (notes.get(i).getDeadline() != 0) {
                 notesWithDL.add(notes.get(i));
             } else {
                 notesWithoutDL.add(notes.get(i));
             }
         }
-        Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
+        Comparator<Note> comNote = new Comparator<Note>() {
+            @Override
+            public int compare(Note left, Note right) {
+                final long diff = left.getDeadline() - right.getDeadline();
+                if (diff > 0) {
+                    return 1;
+                } else if (diff < 0) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+//        Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
         Collections.sort(notesWithDL, comNote);
         Collections.sort(notesWithoutDL, comNote);
         Collections.reverse(notesWithoutDL);
@@ -51,7 +64,7 @@ public class NotesRepository {
     public static Note getNote(Long noteId) {
         Note n = null;
         for (int i = 0; i < notes.size(); i++) {
-            if (notes.get(i).getDeadline() == noteId) {
+            if (notes.get(i).getId() == noteId) {
                 n = notes.get(i);
             }
         }
