@@ -5,10 +5,19 @@ import java.io.Serializable;
 public class Note implements Serializable {
     private String title;
     private String text;
-    private long deadline;
+    private Long deadline;
     private boolean checkBoxIsChecked;
-    private long id;
-    private long editDate;
+    private Long id;
+    private Long editDate;
+
+    public Note(String title, String text, Long deadline, boolean checkBoxIsChecked, Long id, Long editDate) {
+        this.title = title;
+        this.text = text;
+        this.deadline = deadline;
+        this.checkBoxIsChecked = checkBoxIsChecked;
+        this.id = id;
+        this.editDate = editDate;
+    }
 
     public long getEditDate() {
         return editDate;
@@ -18,29 +27,20 @@ public class Note implements Serializable {
         this.editDate = editDate;
     }
 
-    public Note(String title, String text, long deadline, boolean checkBoxIsChecked, long id, long editDate) {
-        this.title = title;
-        this.text = text;
-        this.deadline = deadline;
-        this.checkBoxIsChecked = checkBoxIsChecked;
-        this.id = id;
-        this.editDate = editDate;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public long getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(long deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 

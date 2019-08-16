@@ -53,6 +53,7 @@ public class NotesAct extends AppCompatActivity {
             open(listView);
         }
 
+
         showNotes(notesNew);
 
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
@@ -72,7 +73,7 @@ public class NotesAct extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                            NotesRepository.removeNote(val);
+                            NotesRepository.removeNote(val.getId());
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
                             startActivity(intent);
                             finish();
@@ -97,13 +98,6 @@ public class NotesAct extends AppCompatActivity {
             final Note val = adapter.mData.get(position);
             impText = 1;
             if (val != null) {
-
-                String timeString = " ";
-                Calendar d = Calendar.getInstance();
-                d.setTimeInMillis(val.getDeadline());
-                Date convertDate = d.getTime();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-                timeString = formatter.format(convertDate);
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
                 intent.putExtra("impText", impText);
                 intent.putExtra("ID", val.getId());

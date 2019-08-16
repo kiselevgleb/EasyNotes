@@ -39,32 +39,35 @@ public class NotesRepository {
                 }
             }
         };
-//        Comparator<Note> comNote = Comparator.comparingLong(Note::getDeadline);
         Collections.sort(notesWithDL, comNote);
         Collections.sort(notesWithoutDL, comNote);
         Collections.reverse(notesWithoutDL);
         notes = new ArrayList<>();
         notes.addAll(notesWithDL);
         notes.addAll(notesWithoutDL);
-
     }
 
     public static ArrayList<Note> getNotes() {
         return notes;
     }
 
-    public static void removeNote(Note n) {
-        notes.remove(n);
+    public static void removeNote(Long id) {
+        notes.remove(getNote(id));
     }
 
     public static void saveNote(Note n) {
-        notes.add(n);
+        if (getNote(n.getId()) != null) {
+            removeNote(n.getId());
+            notes.add(n);
+        } else {
+            notes.add(n);
+        }
     }
 
-    public static Note getNote(Long noteId) {
+    public static Note getNote(Long id) {
         Note n = null;
         for (int i = 0; i < notes.size(); i++) {
-            if (notes.get(i).getId() == noteId) {
+            if (notes.get(i).getId() == id) {
                 n = notes.get(i);
             }
         }
