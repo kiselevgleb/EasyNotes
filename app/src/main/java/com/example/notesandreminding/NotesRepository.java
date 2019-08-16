@@ -17,34 +17,27 @@ public class NotesRepository {
 
 
     static void sort() {
-        ArrayList<Note> notesWithDL = new ArrayList<>();
-        ArrayList<Note> notesWithoutDL = new ArrayList<>();
-        for (int i = 0; i < notes.size(); i++) {
-            if (notes.get(i).getDeadline() != 0) {
-                notesWithDL.add(notes.get(i));
-            } else {
-                notesWithoutDL.add(notes.get(i));
-            }
-        }
+
         Comparator<Note> comNote = new Comparator<Note>() {
             @Override
             public int compare(Note left, Note right) {
-                final long diff = left.getDeadline() - right.getDeadline();
-                if (diff > 0) {
-                    return 1;
-                } else if (diff < 0) {
-                    return -1;
+                int comp = 0;
+
+                if (left.getDeadline() != null) {
+                    if (right.getDeadline() == null) {
+                         comp=1;
+                    } else if (left.getDeadline() < right.getDeadline()) {
+                         comp=1;
+                    } else if (left.getDeadline() > right.getDeadline()) {
+                         comp=-1;
+                    }
                 } else {
-                    return 0;
+                     comp = (int) (left.getEditDate() - right.getEditDate());
                 }
+                return comp;
             }
         };
-        Collections.sort(notesWithDL, comNote);
-        Collections.sort(notesWithoutDL, comNote);
-        Collections.reverse(notesWithoutDL);
-        notes = new ArrayList<>();
-        notes.addAll(notesWithDL);
-        notes.addAll(notesWithoutDL);
+        Collections.sort(notes, comNote);
     }
 
     public static ArrayList<Note> getNotes() {
@@ -56,12 +49,12 @@ public class NotesRepository {
     }
 
     public static void saveNote(Note n) {
-        if (getNote(n.getId()) != null) {
+        if (getNote(n.getId())!=null){
             removeNote(n.getId());
             notes.add(n);
-        } else {
-            notes.add(n);
         }
+        else {
+        notes.add(n);}
     }
 
     public static Note getNote(Long id) {
