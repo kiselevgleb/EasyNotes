@@ -24,20 +24,24 @@ public class NotesRepository {
                 int comp = 0;
 
                 if (left.getDeadline() != null) {
-                    if (right.getDeadline() == null) {
-                         comp=1;
+                    if (left.getDeadline() > right.getDeadline()) {
+                         comp=-1;
                     } else if (left.getDeadline() < right.getDeadline()) {
                          comp=1;
-                    } else if (left.getDeadline() > right.getDeadline()) {
-                         comp=-1;
                     }
-                } else {
-                     comp = (int) (left.getEditDate() - right.getEditDate());
+                }
+                else if (left.getEditDate() > right.getEditDate()){
+                    comp = 1;
+                }
+                else {
+                    comp = -1;
                 }
                 return comp;
             }
+
         };
         Collections.sort(notes, comNote);
+//        Collections.reverse(notes);
     }
 
     public static ArrayList<Note> getNotes() {

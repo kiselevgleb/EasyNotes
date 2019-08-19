@@ -2,6 +2,7 @@ package com.example.notesandreminding;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +35,7 @@ public class NotesAct extends AppCompatActivity {
     MapAdapter adapter;
     ArrayList<Note> notesNew;
     private static final String LIST = "list";
-    private SettingsManager settingsManager;
+    private SettingsManager settings;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -48,10 +51,12 @@ public class NotesAct extends AppCompatActivity {
         NotesRepository.sort();
         notesNew = NotesRepository.getNotes();
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(LIST)) {
-
+        if (savedInstanceState != null) {
+//        File fileJson = new File("data.json");
+//            if (settings.getPinCode().equals("1")){
             open(listView);
         }
+//        }
 
 
         showNotes(notesNew);
