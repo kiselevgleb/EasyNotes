@@ -122,7 +122,8 @@ public class WriteNotesActivity extends AppCompatActivity {
                     } else {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
-                        notes = new Note(textHader, textBody, 0L, false, createID(), Calendar.getInstance().getTimeInMillis());
+                        Long deadLine = null;
+                        notes = new Note(textHader, textBody, deadLine, false, createID(), Calendar.getInstance().getTimeInMillis());
                         NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
@@ -146,7 +147,8 @@ public class WriteNotesActivity extends AppCompatActivity {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
                         Note n = NotesRepository.getNote(inputID);
-                        notes = new Note(textHader, textBody, 0L, false, inputID, Calendar.getInstance().getTimeInMillis());
+                        Long deadLine = null;
+                        notes = new Note(textHader, textBody, deadLine, false, inputID, Calendar.getInstance().getTimeInMillis());
                         NotesRepository.saveNote(notes);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);

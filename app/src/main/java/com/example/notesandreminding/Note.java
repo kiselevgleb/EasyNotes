@@ -6,15 +6,15 @@ public class Note implements Serializable {
     private String title;
     private String text;
     private Long deadline;
-    private boolean checkBoxIsChecked;
+    private boolean checkBox;
     private Long id;
     private Long editDate;
 
-    public Note(String title, String text, Long deadline, boolean checkBoxIsChecked, Long id, Long editDate) {
+    public Note(String title, String text, Long deadline, boolean checkBox, Long id, Long editDate) {
         this.title = title;
         this.text = text;
         this.deadline = deadline;
-        this.checkBoxIsChecked = checkBoxIsChecked;
+        this.checkBox = checkBox;
         this.id = id;
         this.editDate = editDate;
     }
@@ -44,21 +44,13 @@ public class Note implements Serializable {
         this.deadline = deadline;
     }
 
-    public boolean getCheckBoxIsChecked() {
-        return checkBoxIsChecked;
-    }
-
-    public void setCheckBoxIsChecked(boolean checkBoxIsChecked) {
-        this.checkBoxIsChecked = checkBoxIsChecked;
-    }
-
 
     public boolean getCheckBox() {
-        return checkBoxIsChecked;
+        return checkBox;
     }
 
     public void setCheckBox(boolean checkBox) {
-        this.checkBoxIsChecked = checkBox;
+        this.checkBox = checkBox;
     }
 
 
