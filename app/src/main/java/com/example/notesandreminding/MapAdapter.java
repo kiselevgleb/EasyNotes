@@ -53,12 +53,19 @@ public class MapAdapter extends BaseAdapter {
         String text = item.getText();
         boolean checkBox = item.getCheckBox();
         Long date = item.getDeadline();
+        Long editTime = item.getEditDate();
         String timeString = " ";
         if (checkBox == true) {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(date);
             Date convertDate = d.getTime();
             timeString = formatter.format(convertDate);
+        }
+        else {
+            Calendar d = Calendar.getInstance();
+            d.setTimeInMillis(editTime);
+            Date convertDate = d.getTime();
+            timeString = "Edit date " + formatter.format(convertDate);
         }
 
 
