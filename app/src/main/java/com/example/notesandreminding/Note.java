@@ -6,15 +6,13 @@ public class Note implements Serializable {
     private String title;
     private String text;
     private Long deadline;
-    private boolean checkBox;
     private Long id;
     private Long editDate;
 
-    public Note(String title, String text, Long deadline, boolean checkBox, Long id, Long editDate) {
+    public Note(String title, String text, Long deadline, Long id, Long editDate) {
         this.title = title;
         this.text = text;
         this.deadline = deadline;
-        this.checkBox = checkBox;
         this.id = id;
         this.editDate = editDate;
     }
@@ -43,16 +41,6 @@ public class Note implements Serializable {
     public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
-
-
-    public boolean getCheckBox() {
-        return checkBox;
-    }
-
-    public void setCheckBox(boolean checkBox) {
-        this.checkBox = checkBox;
-    }
-
 
     public String getTitle() {
         return title;

@@ -10,36 +10,41 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class NotesRepository {
 
     private static ArrayList<Note> notes = new ArrayList<>();
+    private static AtomicLong idCounter = new AtomicLong();
 
 
     static void sort() {
-
         Comparator<Note> comNote = new Comparator<Note>() {
             @Override
             public int compare(Note left, Note right) {
-                int comp = 0;
 
-                if (left.getDeadline() != null) {
-                    if (right.getDeadline() ==null) {
+                if (left.getDeadline() == null) {
+                    if (right.getDeadline() != null) {
                         return 1;
+                    } else {
+                        return Long.compare(right.getEditDate(), left.getEditDate());
                     }
-                    else {
-                        if (left.getDeadline() > right.getDeadline()) {
+                } else {
+                    if (right.getDeadline() == null) {
+                        return -1;
+                    } else {
+                        if (left.getDeadline() < right.getDeadline()) {
                             return -1;
-                        } else if (left.getDeadline() < right.getDeadline()) {
+                        } else if (left.getDeadline() > right.getDeadline()) {
                             return 1;
+                        } else {
+                            return Long.compare(right.getEditDate(), left.getEditDate());
                         }
                     }
                 }
-//                else {
-                    return Long.compare(left.getEditDate(),right.getEditDate());
-
-        }
+            }
         };
+
         Collections.sort(notes, comNote);
     }
 
@@ -52,12 +57,13 @@ public class NotesRepository {
     }
 
     public static void saveNote(Note n) {
-        if (getNote(n.getId())!=null){
+        if (getNote(n.getId()) != null) {
             removeNote(n.getId());
             notes.add(n);
+        } else {
+            n.setId(createID());
+            notes.add(n);
         }
-        else {
-        notes.add(n);}
     }
 
     public static Note getNote(Long id) {
@@ -68,6 +74,10 @@ public class NotesRepository {
             }
         }
         return n;
+    }
+
+    public static synchronized Long createID() {
+        return idCounter.getAndIncrement();
     }
 
 
