@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,8 +21,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class WriteNotesActivity extends AppCompatActivity {
     private static EditText dueDate;
@@ -41,9 +37,9 @@ public class WriteNotesActivity extends AppCompatActivity {
     private Long dateText = null;
     private boolean checkBox;
     private int impText = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_notes);
         dueDate = (EditText) findViewById(R.id.date);
@@ -62,7 +58,6 @@ public class WriteNotesActivity extends AppCompatActivity {
             Note n = NotesRepository.getNote(inputID);
             sethd = n.getTitle();
             setText = n.getText();
-//            checkBox = n.getCheckBox();
             if (checkBox == true) {
                 checkBoxDate.setChecked(true);
                 dueDate.setText(ConvertLongToString(n.getDeadline()));
@@ -110,6 +105,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = ParsDate(cal);
                         notes = new Note(textHader, textBody, deadLine, null, Calendar.getInstance().getTimeInMillis());
                         NotesRepository.saveNote(notes);
+//                        App.setNotesRepository(this);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();

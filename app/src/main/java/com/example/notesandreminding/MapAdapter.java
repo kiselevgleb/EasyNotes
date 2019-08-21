@@ -51,7 +51,6 @@ public class MapAdapter extends BaseAdapter {
         Note item = getItem(position);
         String tit = item.getTitle();
         String text = item.getText();
-//        boolean checkBox = item.getCheckBox();
         Long date = item.getDeadline();
         Long editTime = item.getEditDate();
         String timeString = " ";
@@ -64,8 +63,6 @@ public class MapAdapter extends BaseAdapter {
             Calendar d = Calendar.getInstance();
             d.setTimeInMillis(editTime);
             Date convertDate = d.getTime();
-//            timeString = "Edit date " + formatter.format(convertDate);
-
         }
 
 

@@ -2,11 +2,7 @@ package com.example.notesandreminding;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,20 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class NotesAct extends AppCompatActivity {
     private ListView listView;
@@ -40,7 +25,7 @@ public class NotesAct extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        save(listView);
+//        save(listView);
     }
 
     @Override
@@ -48,16 +33,8 @@ public class NotesAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
-        NotesRepository.sort();
+
         notesNew = NotesRepository.getNotes();
-
-        if (savedInstanceState != null) {
-//        File fileJson = new File("data.json");
-//            if (settings.getPinCode().equals("1")){
-            open(listView);
-        }
-//        }
-
 
         showNotes(notesNew);
 
@@ -82,7 +59,6 @@ public class NotesAct extends AppCompatActivity {
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
                             startActivity(intent);
                             finish();
-
                         }
                     });
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -124,7 +100,6 @@ public class NotesAct extends AppCompatActivity {
             finish();
             Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
             startActivity(intent);
-
         }
     };
 
@@ -147,26 +122,21 @@ public class NotesAct extends AppCompatActivity {
         }
     }
 
-    public void save(View view) {
-
-        boolean result = JSONHelper.exportToJSON(this, notesNew);
-        if (result) {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void open(View view) {
-        notesNew = JSONHelper.importFromJSON(this);
-        if (notesNew != null) {
-            adapter = new MapAdapter(notesNew);
-            listView.setAdapter(adapter);
+//    public void save(View view) {
+//
+//        boolean result = JSONHelper.exportToJSON(this, notesNew);
+//        if (result) {
 //            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        }
-//        else {
-////            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+//        } else {
+//            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
 //        }
-    }
+//    }
 
+//    public void open(View view) {
+//        notesNew = JSONHelper.importFromJSON(this);
+//        if (notesNew != null) {
+//            adapter = new MapAdapter(notesNew);
+//            listView.setAdapter(adapter);
+//        }
+//    }
 }

@@ -1,13 +1,6 @@
 package com.example.notesandreminding;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
@@ -17,8 +10,18 @@ public class NotesRepository {
     private static ArrayList<Note> notes = new ArrayList<>();
     private static AtomicLong idCounter = new AtomicLong();
 
+    public NotesRepository() {
 
-    static void sort() {
+    }
+
+    public NotesRepository(App app) {
+    }
+
+    public static NotesRepository loadNotes() {
+        return App.getNoteRepository();
+    }
+
+    private static void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
             @Override
             public int compare(Note left, Note right) {
@@ -64,7 +67,10 @@ public class NotesRepository {
             n.setId(createID());
             notes.add(n);
         }
+        sort();
+        App.setNotesRepository(this);
     }
+
 
     public static Note getNote(Long id) {
         Note n = null;
