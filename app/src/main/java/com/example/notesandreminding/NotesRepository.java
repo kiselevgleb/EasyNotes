@@ -11,11 +11,11 @@ public class NotesRepository {
     private static AtomicLong idCounter = new AtomicLong();
 
     public NotesRepository() {
-
     }
 
     public NotesRepository(App app) {
     }
+
 
     public static NotesRepository loadNotes() {
         return App.getNoteRepository();

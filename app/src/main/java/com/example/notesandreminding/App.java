@@ -1,15 +1,15 @@
 package com.example.notesandreminding;
 
+import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class App extends AppCompatActivity {
+public class App extends Application {
     private static NotesRepository notesRepository;
     private static SettingsManager keystore;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate() {
+        super.onCreate();
         notesRepository = new NotesRepository(this);
         keystore = new SettingsManager(this);
     }
