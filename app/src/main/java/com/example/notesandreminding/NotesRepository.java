@@ -9,16 +9,18 @@ public class NotesRepository {
 
     private static ArrayList<Note> notes = new ArrayList<>();
     private static AtomicLong idCounter = new AtomicLong();
+    private static App a;
 
     public NotesRepository() {
+        loadNotes();
     }
-
     public NotesRepository(App app) {
+        loadNotes();
     }
 
 
     public static NotesRepository loadNotes() {
-        return App.getNoteRepository();
+        return a.getNoteRepository();
     }
 
     private static void sort() {
@@ -68,7 +70,8 @@ public class NotesRepository {
             notes.add(n);
         }
         sort();
-        App.setNotesRepository(this);
+        a = new App();
+        a.onCreate();
     }
 
 

@@ -21,6 +21,7 @@ public class NotesAct extends AppCompatActivity {
     ArrayList<Note> notesNew;
     private static final String LIST = "list";
     private SettingsManager settings;
+    public static NotesRepository n = new NotesRepository();
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -34,7 +35,8 @@ public class NotesAct extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
 
-        notesNew = NotesRepository.getNotes();
+//        n = n.loadNotes();
+        notesNew = n.getNotes();
 
         showNotes(notesNew);
 
@@ -55,7 +57,7 @@ public class NotesAct extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                            NotesRepository.removeNote(val.getId());
+                            n.removeNote(val.getId());
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
                             startActivity(intent);
                             finish();
