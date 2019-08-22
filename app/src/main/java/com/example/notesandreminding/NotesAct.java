@@ -21,8 +21,8 @@ public class NotesAct extends AppCompatActivity {
     ArrayList<Note> notesNew;
     private static final String LIST = "list";
     private SettingsManager settings;
-    public static NotesRepository n = new NotesRepository();
-
+    public static NotesRepository n;
+    App a;
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -36,6 +36,7 @@ public class NotesAct extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
 //        n = n.loadNotes();
+        n = a.getNoteRepository();
         notesNew = n.getNotes();
 
         showNotes(notesNew);

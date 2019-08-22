@@ -7,23 +7,20 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class NotesRepository {
 
-    private static ArrayList<Note> notes = new ArrayList<>();
-    private static AtomicLong idCounter = new AtomicLong();
-    private static App a;
+    ArrayList<Note> notes = new ArrayList<>();
+    AtomicLong idCounter = new AtomicLong();
+    App a;
 
-    public NotesRepository() {
-        loadNotes();
-    }
     public NotesRepository(App app) {
         loadNotes();
     }
 
 
-    public static NotesRepository loadNotes() {
+    public NotesRepository loadNotes() {
         return a.getNoteRepository();
     }
 
-    private static void sort() {
+    private void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
             @Override
             public int compare(Note left, Note right) {
@@ -53,15 +50,15 @@ public class NotesRepository {
         Collections.sort(notes, comNote);
     }
 
-    public static ArrayList<Note> getNotes() {
+    public ArrayList<Note> getNotes() {
         return notes;
     }
 
-    public static void removeNote(Long id) {
+    public void removeNote(Long id) {
         notes.remove(getNote(id));
     }
 
-    public static void saveNote(Note n) {
+    public void saveNote(Note n) {
         if (getNote(n.getId()) != null) {
             removeNote(n.getId());
             notes.add(n);
@@ -70,12 +67,11 @@ public class NotesRepository {
             notes.add(n);
         }
         sort();
-        a = new App();
-        a.onCreate();
+        a.getNoteRepository().notes=notes;
     }
 
 
-    public static Note getNote(Long id) {
+    public  Note getNote(Long id) {
         Note n = null;
         for (int i = 0; i < notes.size(); i++) {
             if (notes.get(i).getId() == id) {
@@ -85,7 +81,7 @@ public class NotesRepository {
         return n;
     }
 
-    public static synchronized Long createID() {
+    public  synchronized Long createID() {
         return idCounter.getAndIncrement();
     }
 
