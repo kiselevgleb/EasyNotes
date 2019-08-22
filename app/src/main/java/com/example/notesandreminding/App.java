@@ -14,7 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        notesRepository = new NotesRepository(this);
+//        notesRepository = new NotesRepository(this);
 //        keystore = new SettingsManager(this);
     }
     public static NotesRepository getNoteRepository() {

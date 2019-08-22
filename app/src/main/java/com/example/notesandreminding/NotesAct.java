@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,13 @@ public class NotesAct extends AppCompatActivity {
     ArrayList<Note> notesNew;
     private static final String LIST = "list";
     private SettingsManager settings;
-    public static NotesRepository n;
+    public static NotesRepository n = new NotesRepository();
     App a;
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-//        save(listView);
+        save(listView);
     }
 
     @Override
@@ -35,15 +37,18 @@ public class NotesAct extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
 
-//        n = n.loadNotes();
-        n = a.getNoteRepository();
         notesNew = n.getNotes();
+        if (notesNew.size() == 0) {
+            open(listView);
+        } else {
+            showNotes(notesNew);
+        }
 
-        showNotes(notesNew);
 
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
+
     }
 
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
@@ -125,21 +130,26 @@ public class NotesAct extends AppCompatActivity {
         }
     }
 
-//    public void save(View view) {
-//
-//        boolean result = JSONHelper.exportToJSON(this, notesNew);
-//        if (result) {
-//            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-//        } else {
-//            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-//        }
-//    }
+    public void save(View view) {
 
-//    public void open(View view) {
-//        notesNew = JSONHelper.importFromJSON(this);
-//        if (notesNew != null) {
-//            adapter = new MapAdapter(notesNew);
-//            listView.setAdapter(adapter);
-//        }
-//    }
+        boolean result = JSONHelper.exportToJSON(this, notesNew);
+        if (result) {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void open(View view) {
+
+        if (JSONHelper.importFromJSON(this) != null) {
+            notesNew = JSONHelper.importFromJSON(this);
+            n.notes=notesNew;
+            adapter = new MapAdapter(notesNew);
+            listView.setAdapter(adapter);
+
+        } else {
+            showNotes(notesNew);
+        }
+    }
 }

@@ -9,16 +9,20 @@ public class NotesRepository {
 
     ArrayList<Note> notes = new ArrayList<>();
     AtomicLong idCounter = new AtomicLong();
-    App a;
 
-    public NotesRepository(App app) {
-        loadNotes();
-    }
+//    public NotesRepository(ArrayList<Note> notes) {
+//        this.notes = notes;
+//    }
+    //    App a;
+
+//    public NotesRepository(App app) {
+//        loadNotes();
+//    }
 
 
-    public NotesRepository loadNotes() {
-        return a.getNoteRepository();
-    }
+//    public NotesRepository loadNotes() {
+//        return a.getNoteRepository();
+//    }
 
     private void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
@@ -67,7 +71,7 @@ public class NotesRepository {
             notes.add(n);
         }
         sort();
-        a.getNoteRepository().notes=notes;
+//        a.getNoteRepository().notes=notes;
     }
 
 
