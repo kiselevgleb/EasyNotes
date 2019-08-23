@@ -20,10 +20,8 @@ public class NotesAct extends AppCompatActivity {
     private int impText = 0;
     MapAdapter adapter;
     ArrayList<Note> notesNew;
-    private static final String LIST = "list";
-    private SettingsManager settings;
     public static NotesRepository n = new NotesRepository();
-    App a;
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -131,17 +129,10 @@ public class NotesAct extends AppCompatActivity {
     }
 
     public void save(View view) {
-
         boolean result = JSONHelper.exportToJSON(this, notesNew);
-        if (result) {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
-        }
     }
 
     public void open(View view) {
-
         if (JSONHelper.importFromJSON(this) != null) {
             notesNew = JSONHelper.importFromJSON(this);
             n.notes=notesNew;

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 public class App extends Application {
-   private static NotesRepository notesRepository;
+//   private static NotesRepository notesRepository;
 //    private static SettingsManager keystore;
 //private static ArrayList<Note> notes;
 
@@ -17,9 +17,11 @@ public class App extends Application {
 //        notesRepository = new NotesRepository(this);
 //        keystore = new SettingsManager(this);
     }
-    public static NotesRepository getNoteRepository() {
-        return notesRepository;
-    }
+
+
+//    public static NotesRepository getNoteRepository() {
+//        return notesRepository;
+//    }
 //    public static SettingsManager getKeystore() {
 //        return keystore;
 //    }

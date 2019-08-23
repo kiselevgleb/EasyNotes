@@ -33,7 +33,6 @@ public class Note implements Serializable {
         this.id = id;
     }
 
-
     public Long getDeadline() {
         return deadline;
     }
