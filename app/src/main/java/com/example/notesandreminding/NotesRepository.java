@@ -62,6 +62,10 @@ public class NotesRepository {
         notes.remove(getNote(id));
     }
 
+    public void setNotes(ArrayList<Note> notes) {
+        this.notes = notes;
+    }
+
     public void saveNote(Note n) {
         if (getNote(n.getId()) != null) {
             removeNote(n.getId());

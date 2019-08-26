@@ -16,17 +16,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class NotesAct extends AppCompatActivity {
-    private ListView listView;
+    public static ListView listView;
     private int impText = 0;
-    MapAdapter adapter;
+    public static MapAdapter adapter;
     ArrayList<Note> notesNew;
     public static NotesRepository n = new NotesRepository();
-
+    App a = new App();
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        save(listView);
+        a.save(listView);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class NotesAct extends AppCompatActivity {
 
         notesNew = n.getNotes();
         if (notesNew.size() == 0) {
-            open(listView);
+            a.open(listView);
         } else {
             showNotes(notesNew);
         }
@@ -128,19 +128,19 @@ public class NotesAct extends AppCompatActivity {
         }
     }
 
-    public void save(View view) {
-        boolean result = JSONHelper.exportToJSON(this, notesNew);
-    }
+//    public void save(View view) {
+//        boolean result = JSONHelper.exportToJSON(this, notesNew);
+//    }
 
-    public void open(View view) {
-        if (JSONHelper.importFromJSON(this) != null) {
-            notesNew = JSONHelper.importFromJSON(this);
-            n.notes=notesNew;
-            adapter = new MapAdapter(notesNew);
-            listView.setAdapter(adapter);
-
-        } else {
-            showNotes(notesNew);
-        }
-    }
+//    public void open(View view) {
+//        if (JSONHelper.importFromJSON(this) != null) {
+//            notesNew = JSONHelper.importFromJSON(this);
+//            n.notes=notesNew;
+//            adapter = new MapAdapter(notesNew);
+//            listView.setAdapter(adapter);
+//
+//        } else {
+//            showNotes(notesNew);
+//        }
+//    }
 }
