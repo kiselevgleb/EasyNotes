@@ -83,11 +83,11 @@ public class NotesRepository extends AppCompatActivity {
         return idCounter.getAndIncrement();
     }
 
-    public void save(View view, Context context) {
+    public void saveToDisk(View view, Context context) {
         boolean result = JSONHelper.exportToJSON(context, getNotes());
     }
 
-    public void open(View view, Context context) {
+    public void openToDisk(View view, Context context) {
         ListView lv = (ListView) view;
         if (JSONHelper.importFromJSON(context) != null) {
             setNotes(JSONHelper.importFromJSON(context));

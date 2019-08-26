@@ -24,7 +24,7 @@ public class NotesAct extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        App.getNoteRepository().save(listView, context);
+        App.getNoteRepository().saveToDisk(listView, context);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class NotesAct extends AppCompatActivity {
         notesNew = App.getNoteRepository().getNotes();
         if (notesNew.size() == 0) {
             try {
-                App.getNoteRepository().open(listView, context);
+                App.getNoteRepository().openToDisk(listView, context);
             } catch (Exception e) {
                 showNotes(notesNew);
 
