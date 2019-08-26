@@ -33,7 +33,7 @@ public class NotesAct extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
          n= new NotesRepository(this);
-         a = new App(n, this);
+         a = new App(n);
 
         notesNew = a.getNoteRepository().getNotes();
 //        if (notesNew.size() == 0) {
