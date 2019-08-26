@@ -46,17 +46,15 @@ public class JSONHelper {
 
         InputStreamReader streamReader = null;
         FileInputStream fileInputStream = null;
-        try{
+        try {
             fileInputStream = context.openFileInput(FILE_NAME);
             streamReader = new InputStreamReader(fileInputStream);
             Gson gson = new Gson();
             DataItems dataItems = gson.fromJson(streamReader, DataItems.class);
-            return  dataItems.getNotes();
-        }
-        catch (IOException ex){
+            return dataItems.getNotes();
+        } catch (IOException ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             if (streamReader != null) {
                 try {
                     streamReader.close();
@@ -82,6 +80,7 @@ public class JSONHelper {
         ArrayList<Note> getNotes() {
             return noteList;
         }
+
         void setNotes(ArrayList<Note> noteList) {
             this.noteList = noteList;
         }

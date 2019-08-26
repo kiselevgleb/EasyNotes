@@ -1,28 +1,19 @@
 package com.example.notesandreminding;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class NotesRepository {
+public class NotesRepository extends AppCompatActivity {
 
     ArrayList<Note> notes = new ArrayList<>();
     AtomicLong idCounter = new AtomicLong();
-
-//    public NotesRepository(ArrayList<Note> notes) {
-//        this.notes = notes;
-//    }
-    //    App a;
-
-//    public NotesRepository(App app) {
-//        loadNotes();
-//    }
-
-
-//    public NotesRepository loadNotes() {
-//        return a.getNoteRepository();
-//    }
 
     private void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
@@ -75,11 +66,10 @@ public class NotesRepository {
             notes.add(n);
         }
         sort();
-//        a.getNoteRepository().notes=notes;
     }
 
 
-    public  Note getNote(Long id) {
+    public Note getNote(Long id) {
         Note n = null;
         for (int i = 0; i < notes.size(); i++) {
             if (notes.get(i).getId() == id) {
@@ -89,9 +79,25 @@ public class NotesRepository {
         return n;
     }
 
-    public  synchronized Long createID() {
+    public synchronized Long createID() {
         return idCounter.getAndIncrement();
     }
 
+    public void save(View view, Context context) {
+        boolean result = JSONHelper.exportToJSON(context, getNotes());
+    }
+
+    public void open(View view, Context context) {
+        ListView lv = (ListView) view;
+        if (JSONHelper.importFromJSON(context) != null) {
+            setNotes(JSONHelper.importFromJSON(context));
+            NotesAct.adapter = new MapAdapter(getNotes());
+            lv.setAdapter(NotesAct.adapter);
+
+        } else {
+            NotesAct.adapter = new MapAdapter(getNotes());
+            lv.setAdapter(NotesAct.adapter);
+        }
+    }
 
 }

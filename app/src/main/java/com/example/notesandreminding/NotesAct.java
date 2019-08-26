@@ -1,5 +1,6 @@
 package com.example.notesandreminding;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,20 +14,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class NotesAct extends AppCompatActivity {
-    public static ListView listView;
+    private ListView listView;
     private int impText = 0;
     public static MapAdapter adapter;
     ArrayList<Note> notesNew;
-    public static NotesRepository n = new NotesRepository();
-    App a = new App();
+    Context context = this;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        a.save(listView);
+        App.getNoteRepository().save(listView, context);
     }
 
     @Override
@@ -35,13 +36,17 @@ public class NotesAct extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
 
-        notesNew = n.getNotes();
+        notesNew = App.getNoteRepository().getNotes();
         if (notesNew.size() == 0) {
-            a.open(listView);
+            try {
+                App.getNoteRepository().open(listView, context);
+            } catch (Exception e) {
+                showNotes(notesNew);
+
+            }
         } else {
             showNotes(notesNew);
         }
-
 
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
@@ -61,7 +66,7 @@ public class NotesAct extends AppCompatActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                            n.removeNote(val.getId());
+                            App.getNoteRepository().removeNote(val.getId());
                             Intent intent = new Intent(NotesAct.this, NotesAct.class);
                             startActivity(intent);
                             finish();
