@@ -23,9 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class WriteNotesActivity extends AppCompatActivity {
-    private static EditText dueDate;
-    private static EditText title;
-    private static EditText description;
+    private EditText dueDate;
+    private EditText title;
+    private EditText description;
 
     private CheckBox checkBoxDate;
     private Calendar dateAndTime = Calendar.getInstance();

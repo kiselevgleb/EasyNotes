@@ -10,17 +10,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class JSONHelper {
+public class FileDateSource {
 
     private static final String FILE_NAME = "data.json";
+    private Context context = null;
 
-    static boolean exportToJSON(Context context, ArrayList<Note> noteList) {
+    public FileDateSource(Context context) {
+        this.context=context;
+    }
 
+    boolean save(ArrayList<Note> noteList) {
         Gson gson = new Gson();
         DataItems dataItems = new DataItems();
         dataItems.setNotes(noteList);
         String jsonString = gson.toJson(dataItems);
-
         FileOutputStream fileOutputStream = null;
 
         try {
@@ -42,8 +45,7 @@ public class JSONHelper {
         return false;
     }
 
-    static ArrayList<Note> importFromJSON(Context context) {
-
+    ArrayList<Note> load() {
         InputStreamReader streamReader = null;
         FileInputStream fileInputStream = null;
         try {

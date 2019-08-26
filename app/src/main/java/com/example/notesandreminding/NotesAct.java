@@ -19,12 +19,12 @@ public class NotesAct extends AppCompatActivity {
     private int impText = 0;
     public static MapAdapter adapter;
     ArrayList<Note> notesNew;
-    Context context = this;
-
+    NotesRepository n;
+    App a;
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        App.getNoteRepository().saveToDisk(listView, context);
+//        App.getNoteRepository().saveToDisk(listView, context);
     }
 
     @Override
@@ -32,18 +32,21 @@ public class NotesAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
+         n= new NotesRepository(this);
+         a = new App(n, this);
 
-        notesNew = App.getNoteRepository().getNotes();
-        if (notesNew.size() == 0) {
-            try {
-                App.getNoteRepository().openToDisk(listView, context);
-            } catch (Exception e) {
-                showNotes(notesNew);
-
-            }
-        } else {
-            showNotes(notesNew);
-        }
+        notesNew = a.getNoteRepository().getNotes();
+//        if (notesNew.size() == 0) {
+//            try {
+////                App.getNoteRepository().openToDisk(listView);
+//                n =new NotesRepository(this);
+//            } catch (Exception e) {
+//                showNotes(notesNew);
+//
+//            }
+//        } else {
+//            showNotes(notesNew);
+//        }
 
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
@@ -129,20 +132,4 @@ public class NotesAct extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-//    public void save(View view) {
-//        boolean result = JSONHelper.exportToJSON(this, notesNew);
-//    }
-
-//    public void open(View view) {
-//        if (JSONHelper.importFromJSON(this) != null) {
-//            notesNew = JSONHelper.importFromJSON(this);
-//            n.notes=notesNew;
-//            adapter = new MapAdapter(notesNew);
-//            listView.setAdapter(adapter);
-//
-//        } else {
-//            showNotes(notesNew);
-//        }
-//    }
 }

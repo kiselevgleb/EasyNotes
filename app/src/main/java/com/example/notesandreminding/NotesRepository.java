@@ -10,10 +10,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class NotesRepository extends AppCompatActivity {
+public class NotesRepository  {
 
     ArrayList<Note> notes = new ArrayList<>();
     AtomicLong idCounter = new AtomicLong();
+    FileDateSource fds=null;
+
+    public NotesRepository(Context context) {
+        fds = new FileDateSource(context);
+        fds.load();
+    }
 
     private void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
@@ -66,6 +72,7 @@ public class NotesRepository extends AppCompatActivity {
             notes.add(n);
         }
         sort();
+        saveToDisk();
     }
 
 
@@ -83,21 +90,21 @@ public class NotesRepository extends AppCompatActivity {
         return idCounter.getAndIncrement();
     }
 
-    public void saveToDisk(View view, Context context) {
-        boolean result = JSONHelper.exportToJSON(context, getNotes());
+    private void saveToDisk() {
+        boolean result = fds.save(getNotes());
     }
 
-    public void openToDisk(View view, Context context) {
-        ListView lv = (ListView) view;
-        if (JSONHelper.importFromJSON(context) != null) {
-            setNotes(JSONHelper.importFromJSON(context));
-            NotesAct.adapter = new MapAdapter(getNotes());
-            lv.setAdapter(NotesAct.adapter);
-
-        } else {
-            NotesAct.adapter = new MapAdapter(getNotes());
-            lv.setAdapter(NotesAct.adapter);
-        }
-    }
+//    public void openToDisk(View view, Context context) {
+//        ListView lv = (ListView) view;
+//        if (FileDateSource.load(context) != null) {
+//            setNotes(FileDateSource.load(context));
+//            NotesAct.adapter = new MapAdapter(getNotes());
+//            lv.setAdapter(NotesAct.adapter);
+//
+//        } else {
+//            NotesAct.adapter = new MapAdapter(getNotes());
+//            lv.setAdapter(NotesAct.adapter);
+//        }
+//    }
 
 }
