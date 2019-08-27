@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class NotesRepositoryImp implements NotesRepository{
 
-    ArrayList<Note> notes = new ArrayList<>();
-    AtomicLong idCounter = new AtomicLong();
-    FileDateSource fds = null;
+    private ArrayList<Note> notes = new ArrayList<>();
+    private AtomicLong idCounter = new AtomicLong();
+    private FileDateSource fds = null;
 
     public NotesRepositoryImp(Context context) {
         fds = new FileDateSource(context);
@@ -84,11 +84,11 @@ public class NotesRepositoryImp implements NotesRepository{
         return n;
     }
 
-    public synchronized Long createID() {
+    private synchronized Long createID() {
         return idCounter.getAndIncrement();
     }
 
-    public void saveToDisk() {
+    private void saveToDisk() {
         boolean result = fds.save(notes);
     }
 
