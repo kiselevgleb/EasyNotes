@@ -18,23 +18,6 @@ public class NotesListActivity extends AppCompatActivity {
     private ListView listView;
     private MapAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes);
-        listView = findViewById(R.id.listView);
-
-        findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
-        listView.setOnItemClickListener(itemClickListener);
-        listView.setOnItemLongClickListener(onItemLongClickListener);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateNotesList();
-    }
-
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,13 +56,6 @@ public class NotesListActivity extends AppCompatActivity {
         }
     };
 
-    private void updateNotesList() {
-        ArrayList<Note> not = App.getNoteRepository().getNotes();
-        adapter = new MapAdapter(not);
-        listView.setAdapter(adapter);
-    }
-
-
     private View.OnClickListener addNoteClickListener = new View.OnClickListener() {
 
         @Override
@@ -89,6 +65,30 @@ public class NotesListActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notes);
+        listView = findViewById(R.id.listView);
+
+        findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
+        listView.setOnItemClickListener(itemClickListener);
+        listView.setOnItemLongClickListener(onItemLongClickListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateNotesList();
+    }
+
+    private void updateNotesList() {
+        ArrayList<Note> not = App.getNoteRepository().getNotes();
+        adapter = new MapAdapter(not);
+        listView.setAdapter(adapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

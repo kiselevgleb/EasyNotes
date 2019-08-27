@@ -4,28 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
-public class SettingsManager {
-    private static final String SHARED_PREFERENCE_NAME = "settings_preferences";
-    private static final String KEY_PIN_CODE = "pin_code";
+public interface SettingsManager {
+    static final String SHARED_PREFERENCE_NAME = "settings_preferences";
+    static final String KEY_PIN_CODE = "pin_code";
 
-    private final SharedPreferences preferences;
+    final SharedPreferences preferences = null;
 
-    public SettingsManager(Context context) {
-        this.preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
-    }
-
-    public void setPinCode(String pinCode) {
-        preferences.edit()
-                .putString(KEY_PIN_CODE, pinCode)
-                .apply();
-    }
+    public void setPinCode(String pinCode);
 
     @Nullable
-    public String getPinCode() {
-        return preferences.getString(KEY_PIN_CODE, null);
-    }
+    public String getPinCode();
 
-    public boolean hasPinCode() {
-        return preferences.contains(KEY_PIN_CODE);
-    }
+    public boolean hasPinCode();
 }

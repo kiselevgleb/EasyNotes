@@ -1,8 +1,6 @@
 package com.example.notesandreminding;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -18,7 +16,7 @@ public class NewPassActivity extends AppCompatActivity {
     private EditText pass;
     private CheckBox showPassCheckbox;
     private Button save;
-    private SettingsManager settingsManager;
+    private SettingsManagerImp settingsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
