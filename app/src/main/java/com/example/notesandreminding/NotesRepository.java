@@ -1,24 +1,22 @@
 package com.example.notesandreminding;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class NotesRepository  {
+public class NotesRepository {
 
     ArrayList<Note> notes = new ArrayList<>();
     AtomicLong idCounter = new AtomicLong();
-    FileDateSource fds=null;
+    FileDateSource fds = null;
 
     public NotesRepository(Context context) {
         fds = new FileDateSource(context);
-        fds.load();
+
+        setNotes(fds.load());
     }
 
     private void sort() {
@@ -91,20 +89,7 @@ public class NotesRepository  {
     }
 
     private void saveToDisk() {
-        boolean result = fds.save(getNotes());
+        boolean result = fds.save(notes);
     }
-
-//    public void openToDisk(View view, Context context) {
-//        ListView lv = (ListView) view;
-//        if (FileDateSource.load(context) != null) {
-//            setNotes(FileDateSource.load(context));
-//            NotesAct.adapter = new MapAdapter(getNotes());
-//            lv.setAdapter(NotesAct.adapter);
-//
-//        } else {
-//            NotesAct.adapter = new MapAdapter(getNotes());
-//            lv.setAdapter(NotesAct.adapter);
-//        }
-//    }
 
 }

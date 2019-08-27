@@ -72,8 +72,7 @@ public class FileDateSource {
                 }
             }
         }
-
-        return null;
+        return new ArrayList<>();
     }
 
     private static class DataItems {

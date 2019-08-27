@@ -1,6 +1,5 @@
 package com.example.notesandreminding;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +11,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
 public class NotesAct extends AppCompatActivity {
     private ListView listView;
     private int impText = 0;
-    public static MapAdapter adapter;
+    private MapAdapter adapter;
     ArrayList<Note> notesNew;
-    NotesRepository n;
-    App a;
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-//        App.getNoteRepository().saveToDisk(listView, context);
     }
 
     @Override
@@ -32,22 +30,9 @@ public class NotesAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
-         n= new NotesRepository(this);
-         a = new App(n);
 
-        notesNew = a.getNoteRepository().getNotes();
-//        if (notesNew.size() == 0) {
-//            try {
-////                App.getNoteRepository().openToDisk(listView);
-//                n =new NotesRepository(this);
-//            } catch (Exception e) {
-//                showNotes(notesNew);
-//
-//            }
-//        } else {
-//            showNotes(notesNew);
-//        }
-
+        notesNew = App.getNoteRepository().getNotes();
+        showNotes(notesNew);
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);

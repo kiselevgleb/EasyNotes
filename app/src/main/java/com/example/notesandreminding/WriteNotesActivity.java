@@ -26,14 +26,12 @@ public class WriteNotesActivity extends AppCompatActivity {
     private EditText dueDate;
     private EditText title;
     private EditText description;
-
     private CheckBox checkBoxDate;
     private Calendar dateAndTime = Calendar.getInstance();
     private Note notes;
     private String sethd = null;
     private String setText = null;
     private Long inputID = null;
-
     private Long dateText = null;
     private boolean checkBox;
     private int impText = 0;
@@ -106,7 +104,6 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = ParsDate(cal);
                         notes = new Note(textHader, textBody, deadLine, null, Calendar.getInstance().getTimeInMillis());
                         App.getNoteRepository().saveNote(notes);
-//                        App.setNotesRepository(this);
                         Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
                         startActivity(intent);
                         finish();

@@ -1,25 +1,21 @@
 package com.example.notesandreminding;
 
 import android.app.Application;
-import android.content.Context;
 
 public class App extends Application {
-
-    private static NotesRepository notesRepository;
-
-    App(NotesRepository notesRepository) {
-        this.notesRepository = notesRepository;
-    }
-
+    private static NotesRepository noteRepository;
+    private static SettingsManager settingsManager;
+    @Override
     public void onCreate() {
         super.onCreate();
-    }
 
+        noteRepository = new NotesRepository(this);
+        settingsManager = new SettingsManager(this);
+    }
     public static NotesRepository getNoteRepository() {
-        return notesRepository;
+        return noteRepository;
     }
-
-    public static void setNotesRepository(NotesRepository notesRepository) {
-        App.notesRepository = notesRepository;
+    public static SettingsManager getKeystore() {
+        return settingsManager;
     }
 }
