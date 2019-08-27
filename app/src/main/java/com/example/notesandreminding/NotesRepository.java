@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public interface NotesRepository {
 
-    void sort();
-
     public ArrayList<Note> getNotes();
 
     public void removeNote(Long id);

@@ -16,7 +16,7 @@ public class NewPassActivity extends AppCompatActivity {
     private EditText pass;
     private CheckBox showPassCheckbox;
     private Button save;
-    private SettingsManagerImp settingsManager;
+    private SettingsManager settingsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

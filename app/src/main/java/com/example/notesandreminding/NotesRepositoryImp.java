@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class NotesRepositoryImp implements NotesRepository{
+public class NotesRepositoryImp implements NotesRepository {
 
     private ArrayList<Note> notes = new ArrayList<>();
     private AtomicLong idCounter = new AtomicLong();
@@ -19,7 +19,7 @@ public class NotesRepositoryImp implements NotesRepository{
         setNotes(fds.load());
     }
 
-     public void sort() {
+    public void sort() {
         Comparator<Note> comNote = new Comparator<Note>() {
             @Override
             public int compare(Note left, Note right) {

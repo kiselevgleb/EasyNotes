@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView point2;
     private TextView point3;
     private TextView point4;
-    private SettingsManagerImp settingsManager;
+    private SettingsManager settingsManager;
     private String pass = "";
     private static final String PASS = "PASS";
 
