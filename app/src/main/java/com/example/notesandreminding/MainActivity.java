@@ -1,24 +1,12 @@
 package com.example.notesandreminding;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        settingsManager = new SettingsManager(this);
+        settingsManager = App.getSettingsManager();
         if (!settingsManager.hasPinCode()) {
             Intent intent = new Intent(MainActivity.this, NewPassActivity.class);
             startActivity(intent);
@@ -97,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             point3.setTextColor(checkedColor);
         } else {
             if (pass.length() == 4 && pass.equals(settingsManager.getPinCode())) {
-                Intent intent = new Intent(MainActivity.this, NotesAct.class);
+                Intent intent = new Intent(MainActivity.this, NotesListActivity.class);
                 startActivity(intent);
                 finish();
 

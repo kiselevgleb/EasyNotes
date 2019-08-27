@@ -15,7 +15,7 @@ public class App extends Application {
     public static NotesRepository getNoteRepository() {
         return noteRepository;
     }
-    public static SettingsManager getKeystore() {
+    public static SettingsManager getSettingsManager() {
         return settingsManager;
     }
 }

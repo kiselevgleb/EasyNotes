@@ -102,7 +102,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = ParsDate(cal);
                         notes = new Note(textHader, textBody, deadLine, null, Calendar.getInstance().getTimeInMillis());
                         App.getNoteRepository().saveNote(notes);
-                        Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
+                        Intent intent = new Intent(WriteNotesActivity.this, NotesListActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
@@ -112,7 +112,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = null;
                         notes = new Note(textHader, textBody, deadLine, null, Calendar.getInstance().getTimeInMillis());
                         App.getNoteRepository().saveNote(notes);
-                        Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
+                        Intent intent = new Intent(WriteNotesActivity.this, NotesListActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
@@ -126,7 +126,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Note n = App.getNoteRepository().getNote(inputID);
                         notes = new Note(textHader, textBody, deadLine, inputID, Calendar.getInstance().getTimeInMillis());
                         App.getNoteRepository().saveNote(notes);
-                        Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
+                        Intent intent = new Intent(WriteNotesActivity.this, NotesListActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
@@ -137,7 +137,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         Long deadLine = null;
                         notes = new Note(textHader, textBody, deadLine, inputID, Calendar.getInstance().getTimeInMillis());
                         App.getNoteRepository().saveNote(notes);
-                        Intent intent = new Intent(WriteNotesActivity.this, NotesAct.class);
+                        Intent intent = new Intent(WriteNotesActivity.this, NotesListActivity.class);
                         startActivity(intent);
                         finish();
                         return true;

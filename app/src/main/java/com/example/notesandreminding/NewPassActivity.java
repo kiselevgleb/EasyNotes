@@ -24,7 +24,7 @@ public class NewPassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
-        settingsManager = new SettingsManager(this);
+        settingsManager = App.getSettingsManager();
         pass = (EditText) findViewById(R.id.passNew);
         showPassCheckbox = (CheckBox) findViewById(R.id.checkBoxPass);
         save = (Button) findViewById(R.id.buttonSavePass);
