@@ -16,9 +16,7 @@ import java.util.ArrayList;
 
 public class NotesAct extends AppCompatActivity {
     private ListView listView;
-    private int impText = 0;
     private MapAdapter adapter;
-    ArrayList<Note> notesNew;
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -31,12 +29,16 @@ public class NotesAct extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
         listView = findViewById(R.id.listView);
 
-        notesNew = App.getNoteRepository().getNotes();
-        showNotes(notesNew);
         findViewById(R.id.fab).setOnClickListener(addNoteClickListener);
         listView.setOnItemClickListener(itemClickListener);
         listView.setOnItemLongClickListener(onItemLongClickListener);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showNotes(App.getNoteRepository().getNotes());
     }
 
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
@@ -52,9 +54,7 @@ public class NotesAct extends AppCompatActivity {
                     .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
                             App.getNoteRepository().removeNote(val.getId());
-                            Intent intent = new Intent(NotesAct.this, NotesAct.class);
-                            startActivity(intent);
-                            finish();
+                            showNotes(App.getNoteRepository().getNotes());
                         }
                     });
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -73,11 +73,10 @@ public class NotesAct extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final Note val = adapter.mData.get(position);
-            impText = 1;
+            final long ID = val.getId();
             if (val != null) {
                 Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
-                intent.putExtra("impText", impText);
-                intent.putExtra("ID", val.getId());
+                intent.putExtra("ID", ID);
                 startActivity(intent);
             }
         }
@@ -92,7 +91,6 @@ public class NotesAct extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            impText = 0;
             finish();
             Intent intent = new Intent(NotesAct.this, WriteNotesActivity.class);
             startActivity(intent);

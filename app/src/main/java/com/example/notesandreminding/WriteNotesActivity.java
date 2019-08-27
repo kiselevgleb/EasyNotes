@@ -34,7 +34,6 @@ public class WriteNotesActivity extends AppCompatActivity {
     private Long inputID = null;
     private Long dateText = null;
     private boolean checkBox;
-    private int impText = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +47,11 @@ public class WriteNotesActivity extends AppCompatActivity {
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
         try {
-            impText = getIntent().getExtras().getInt("impText");
+            inputID = (Long) getIntent().getExtras().getLong("ID");
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        if (impText == 1) {
-            inputID = (Long) getIntent().getExtras().getLong("ID");
+        if (inputID != null) {
             Note n = App.getNoteRepository().getNote(inputID);
             sethd = n.getTitle();
             setText = n.getText();
@@ -96,7 +94,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_action:
-                if (impText != 1) {
+                if (inputID == null) {
                     if (checkBoxDate.isChecked()) {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
@@ -119,7 +117,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                         finish();
                         return true;
                     }
-                } else if (impText == 1) {
+                } else if (inputID != null) {
                     if (checkBoxDate.isChecked()) {
                         String textHader = title.getText().toString();
                         String textBody = description.getText().toString();
