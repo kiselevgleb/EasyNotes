@@ -8,7 +8,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         noteRepository = new NotesRepositoryImp(this);
         settingsManager = new SettingsManagerImp(this);
     }
