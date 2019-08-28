@@ -43,7 +43,7 @@ public class WriteNotesActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateAndTime.set(Calendar.MINUTE, minute);
-            setInitialDateTime();
+            updateDeadlineTextView();
         }
     };
     DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -52,7 +52,7 @@ public class WriteNotesActivity extends AppCompatActivity {
             dateAndTime.set(Calendar.YEAR, year);
             dateAndTime.set(Calendar.MONTH, monthOfYear);
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialDateTime();
+            updateDeadlineTextView();
         }
     };
 
@@ -77,7 +77,8 @@ public class WriteNotesActivity extends AppCompatActivity {
             Note n = App.getNoteRepository().getNote(inputID);
             if (n.getDeadline() != null) {
                 checkBoxDate.setChecked(true);
-                dueDate.setText(ConvertLongToString(n.getDeadline()));
+                dueDate.setText((n.getDeadline().toString()));
+                updateDeadlineTextView();
             } else {
                 checkBoxDate.setChecked(false);
             }
@@ -92,7 +93,7 @@ public class WriteNotesActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    dueDate.setText(ConvertLongToString(Calendar.getInstance().getTimeInMillis()));
+                    dueDate.setText(Calendar.getInstance().getTime().toString());
                 } else {
                     dueDate.setText("");
                 }
@@ -127,14 +128,6 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
     }
 
-    private String ConvertLongToString(long l) {
-        Calendar d = Calendar.getInstance();
-        d.setTimeInMillis(l);
-        Date convertDate = d.getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy hh:mm");
-        return formatter.format(convertDate);
-    }
-
     public void setDate() {
         new DatePickerDialog(WriteNotesActivity.this, dateSetListener,
                 dateAndTime.get(Calendar.YEAR),
@@ -143,15 +136,7 @@ public class WriteNotesActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void setTime(View v) {
-        new TimePickerDialog(WriteNotesActivity.this, timeSetListener,
-                dateAndTime.get(Calendar.HOUR_OF_DAY),
-                dateAndTime.get(Calendar.MINUTE), true)
-                .show();
-    }
-
-    private void setInitialDateTime() {
-
+    private void updateDeadlineTextView() {
         dueDate.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
