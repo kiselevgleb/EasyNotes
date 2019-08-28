@@ -60,7 +60,7 @@ public class NotesListActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            finish();
+//            finish();
             Intent intent = new Intent(NotesListActivity.this, WriteNotesActivity.class);
             startActivity(intent);
         }
