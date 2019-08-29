@@ -38,14 +38,6 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
     };
 
-    TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateAndTime.set(Calendar.MINUTE, minute);
-            updateDeadlineTextView();
-        }
-    };
     DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -53,6 +45,17 @@ public class WriteNotesActivity extends AppCompatActivity {
             dateAndTime.set(Calendar.MONTH, monthOfYear);
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateDeadlineTextView();
+        }
+    };
+    private CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                dueDate.setText(Calendar.getInstance().getTime().toString());
+                updateDeadlineTextView();
+            } else {
+                dueDate.setText("");
+            }
         }
     };
 
@@ -68,6 +71,7 @@ public class WriteNotesActivity extends AppCompatActivity {
         checkBoxDate = (CheckBox) findViewById(R.id.checkBox);
         ImageButton datebut = (ImageButton) findViewById(R.id.imageButton);
         datebut.setOnClickListener(clickListener);
+        checkBoxDate.setOnCheckedChangeListener(onCheckedChangeListener);
         try {
             inputID = (Long) getIntent().getExtras().getLong("ID");
         } catch (NullPointerException e) {
@@ -75,30 +79,29 @@ public class WriteNotesActivity extends AppCompatActivity {
         }
         if (inputID != null) {
             Note n = App.getNoteRepository().getNote(inputID);
-            if (n.getDeadline() != null) {
-                checkBoxDate.setChecked(true);
-                dueDate.setText((n.getDeadline().toString()));
-                updateDeadlineTextView();
-            } else {
-                checkBoxDate.setChecked(false);
-            }
-            title.setText(n.getTitle());
-            description.setText(n.getText());
-        } else {
-            title.setText("");
-            description.setText("");
-            dueDate.setText("");
+            fillViewsByNote(n);
         }
-        checkBoxDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    dueDate.setText(Calendar.getInstance().getTime().toString());
-                } else {
-                    dueDate.setText("");
-                }
-            }
-        });
+    }
+
+    private void fillViewsByNote(Note n) {
+
+        if (n.getDeadline() != null) {
+            checkBoxDate.setChecked(true);
+            dateAndTime.setTimeInMillis(n.getDeadline());
+            dueDate.setText((n.getDeadline().toString()));
+            updateDeadlineTextView();
+        } else {
+            checkBoxDate.setChecked(false);
+        }
+        title.setText(n.getTitle());
+        description.setText(n.getText());
+    }
+
+    private void updateDeadlineTextView() {
+        dueDate.setText(DateUtils.formatDateTime(this,
+                dateAndTime.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_SHOW_TIME));
     }
 
     @Override
@@ -113,6 +116,7 @@ public class WriteNotesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.save_action:
                 Long deadLine = checkBoxDate.isChecked() ? dateAndTime.getTimeInMillis() : null;
+
                 String textHader = title.getText().toString();
                 String textBody = description.getText().toString();
                 Note notes = new Note(textHader, textBody, deadLine, inputID, Calendar.getInstance().getTimeInMillis());
@@ -136,10 +140,5 @@ public class WriteNotesActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void updateDeadlineTextView() {
-        dueDate.setText(DateUtils.formatDateTime(this,
-                dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
-    }
+
 }
