@@ -6,14 +6,14 @@ public class Note implements Serializable {
     private String title;
     private String text;
     private Long deadline;
-    private Long id;
+    private Long ID;
     private Long editDate;
 
     public Note(String title, String text, Long deadline, Long id, Long editDate) {
         this.title = title;
         this.text = text;
         this.deadline = deadline;
-        this.id = id;
+        this.ID = id;
         this.editDate = editDate;
     }
 
@@ -26,11 +26,11 @@ public class Note implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return ID;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.ID = id;
     }
 
     public Long getDeadline() {

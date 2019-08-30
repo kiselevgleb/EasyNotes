@@ -24,14 +24,14 @@ public class NotesRepositoryImp implements NotesRepository {
             @Override
             public int compare(Note left, Note right) {
 
-                if (left.getDeadline() == null) {
-                    if (right.getDeadline() != null) {
+                if (left.getDeadline().equals(null)) {
+                    if (!(right.getDeadline().equals(null))) {
                         return 1;
                     } else {
                         return Long.compare(right.getEditDate(), left.getEditDate());
                     }
                 } else {
-                    if (right.getDeadline() == null) {
+                    if (right.getDeadline().equals(null)) {
                         return -1;
                     } else {
                         if (left.getDeadline() < right.getDeadline()) {
@@ -77,7 +77,7 @@ public class NotesRepositoryImp implements NotesRepository {
     public Note getNote(Long id) {
         Note n = null;
         for (int i = 0; i < notes.size(); i++) {
-            if (notes.get(i).getId() == id) {
+            if (notes.get(i).getId().equals(id)) {
                 n = notes.get(i);
             }
         }
