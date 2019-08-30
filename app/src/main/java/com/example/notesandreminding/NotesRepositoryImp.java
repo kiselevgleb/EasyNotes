@@ -24,14 +24,14 @@ public class NotesRepositoryImp implements NotesRepository {
             @Override
             public int compare(Note left, Note right) {
 
-                if (left.getDeadline().equals(null)) {
-                    if (!(right.getDeadline().equals(null))) {
+                if (left.getDeadline() == null) {
+                    if (right.getDeadline() != null) {
                         return 1;
                     } else {
                         return Long.compare(right.getEditDate(), left.getEditDate());
                     }
                 } else {
-                    if (right.getDeadline().equals(null)) {
+                    if (right.getDeadline() == null) {
                         return -1;
                     } else {
                         if (left.getDeadline() < right.getDeadline()) {
