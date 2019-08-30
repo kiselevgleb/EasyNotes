@@ -19,7 +19,6 @@ import static android.os.Build.ID;
 public class NotesListActivity extends AppCompatActivity {
     private ListView listView;
     private MapAdapter adapter;
-    private final static String EXTRA_NOTE_ID="note_id";
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -53,7 +52,7 @@ public class NotesListActivity extends AppCompatActivity {
             final Note val = adapter.mData.get(position);
             long ID = val.getId();
             Intent intent = new Intent(NotesListActivity.this, WriteNotesActivity.class);
-            intent.putExtra(EXTRA_NOTE_ID, ID);
+            intent.putExtra(WriteNotesActivity.EXTRA_NOTE_ID, ID);
             startActivity(intent);
         }
     };

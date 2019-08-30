@@ -30,7 +30,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     private CheckBox checkBoxDate;
     private Calendar dateAndTime = Calendar.getInstance();
     private Long inputID = null;
-    private final static String EXTRA_NOTE_ID="note_id";
+    public final static String EXTRA_NOTE_ID="note_id";
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
