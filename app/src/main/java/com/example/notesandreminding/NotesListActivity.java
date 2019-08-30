@@ -14,10 +14,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import static android.os.Build.ID;
+
 public class NotesListActivity extends AppCompatActivity {
     private ListView listView;
     private MapAdapter adapter;
-
+    private final static String EXTRA_NOTE_ID="note_id";
     AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -49,9 +51,9 @@ public class NotesListActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final Note val = adapter.mData.get(position);
-            final long ID = val.getId();
+            long ID = val.getId();
             Intent intent = new Intent(NotesListActivity.this, WriteNotesActivity.class);
-            intent.putExtra("ID", ID);
+            intent.putExtra("note_id", ID);
             startActivity(intent);
         }
     };
