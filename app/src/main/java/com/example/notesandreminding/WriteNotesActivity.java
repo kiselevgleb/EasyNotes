@@ -30,6 +30,7 @@ public class WriteNotesActivity extends AppCompatActivity {
     private CheckBox checkBoxDate;
     private Calendar dateAndTime = Calendar.getInstance();
     private Long inputID = null;
+    private final static String EXTRA_NOTE_ID="note_id";
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -73,7 +74,7 @@ public class WriteNotesActivity extends AppCompatActivity {
         datebut.setOnClickListener(clickListener);
         checkBoxDate.setOnCheckedChangeListener(onCheckedChangeListener);
         try {
-            inputID = (Long) getIntent().getExtras().getLong("note_id");
+            inputID = (Long) getIntent().getExtras().getLong(EXTRA_NOTE_ID);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

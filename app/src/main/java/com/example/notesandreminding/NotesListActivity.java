@@ -53,7 +53,7 @@ public class NotesListActivity extends AppCompatActivity {
             final Note val = adapter.mData.get(position);
             long ID = val.getId();
             Intent intent = new Intent(NotesListActivity.this, WriteNotesActivity.class);
-            intent.putExtra("note_id", ID);
+            intent.putExtra(EXTRA_NOTE_ID, ID);
             startActivity(intent);
         }
     };
