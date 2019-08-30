@@ -73,7 +73,7 @@ public class WriteNotesActivity extends AppCompatActivity {
         datebut.setOnClickListener(clickListener);
         checkBoxDate.setOnCheckedChangeListener(onCheckedChangeListener);
         try {
-            inputID = (Long) getIntent().getExtras().getLong("ID");
+            inputID = (Long) getIntent().getExtras().getLong("note_id");
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
