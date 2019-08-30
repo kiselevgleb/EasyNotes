@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fp"
     android:orientation="vertical">
 
     <TextView
@@ -35,7 +36,7 @@
             android:padding="0dp"
             android:text="@string/point"
             android:textAlignment="center"
-            android:textColor="?attr/colorButtonNormal"
+            android:textColor="@color/pointUnChecked"
             android:textSize="100sp"></TextView>
 
         <TextView
@@ -47,7 +48,7 @@
             android:padding="0dp"
             android:text="@string/point2"
             android:textAlignment="center"
-            android:textColor="?attr/colorButtonNormal"
+            android:textColor="@color/pointUnChecked"
             android:textSize="100dp"></TextView>
 
         <TextView
@@ -59,7 +60,7 @@
             android:padding="0dp"
             android:text="@string/point3"
             android:textAlignment="center"
-            android:textColor="?attr/colorButtonNormal"
+            android:textColor="@color/pointUnChecked"
             android:textSize="100dp"></TextView>
 
         <TextView
@@ -71,7 +72,7 @@
             android:padding="0dp"
             android:text="@string/point4"
             android:textAlignment="center"
-            android:textColor="?attr/colorButtonNormal"
+            android:textColor="@color/pointUnChecked"
             android:textSize="100sp"></TextView>
 
     </LinearLayout>
